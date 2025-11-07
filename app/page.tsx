@@ -9,9 +9,9 @@ export default function Home() {
   return (
     <div style={{ backgroundColor: '#221010', minHeight: '100vh', width: '100%' }}>
       <div style={{ 
-        maxWidth: '1280px', 
+        maxWidth: '1440px', 
         margin: '0 auto',
-        padding: '0 40px'
+        padding: '0 20px'
       }}>
         <Header />
         <main style={{ 
