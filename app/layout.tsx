@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Space_Grotesk } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
 
-const inter = Inter({ subsets: ['latin'] })
+const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], weight: ['400','500','700'] })
 
 export const metadata: Metadata = {
   title: 'SketchSage - Sanat Feedback Platformu',
@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="tr">
-      <body className={inter.className}>
+      <body className={`${spaceGrotesk.className} bg-[#221010]`}> {/* koyu arka plan */}
         {children}
         <Toaster position="top-right" />
       </body>

@@ -20,18 +20,16 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <section id="faq" className="py-16 bg-[#1b0f0f]">
-      <div className="max-w-[980px] mx-auto px-4 md:px-5">
-        <div className="mb-8">
-          <h2 className="text-base font-semibold text-[#f0e6e6]">Frequently Asked Questions</h2>
-          <div className="h-0.5 w-24 bg-[#a43a2b] mt-3" />
-        </div>
-
-        <div className="divide-y divide-[#382121] border-y border-[#382121]">
-          {faqs.map((faq, index) => (
-            <div key={index} className="py-6">
-              <h3 className="text-sm font-semibold text-white mb-2">{faq.question}</h3>
-              <p className="text-sm leading-relaxed text-gray-400">{faq.answer}</p>
+    <section id="faq" className="mt-2">
+      <div className="max-w-[960px] mx-auto">
+        <h2 className="text-white text-[22px] font-bold tracking-[-0.015em] px-4 pb-3 pt-5 border-b-2 border-[#d41111]/30">
+          Frequently Asked Questions
+        </h2>
+        <div className="flex flex-col gap-4 p-4">
+          {faqs.map((faq, i) => (
+            <div key={i} className="flex flex-col gap-2 border-b border-white/10 pb-4">
+              <h3 className="text-lg font-bold text-white">{faq.question}</h3>
+              <p className="text-white/80 text-base">{faq.answer}</p>
             </div>
           ))}
         </div>

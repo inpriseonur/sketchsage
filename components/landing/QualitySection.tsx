@@ -1,33 +1,46 @@
 import Image from 'next/image'
 
 const examples = [
-  { id: 1, image: '/images/gallery/example1.jpg', alt: 'Portrait sketch' },
-  { id: 2, image: '/images/gallery/example2.jpg', alt: 'Flower painting' },
-  { id: 3, image: '/images/gallery/example3.jpg', alt: 'Architecture drawing' },
-  { id: 4, image: '/images/gallery/example4.jpg', alt: 'Landscape painting' },
+  {
+    id: 1,
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDaJ9YEkySHeujYONrG4zQdRPU7X3q7sHFucbtcxS0PHKIhn_MRyEqo9bAx1v3GJ3teU47593uWRVZSBdwx4GhulQEkAZPzuyvZP5TLAeUgunpqFXaNeb-JJzheF3lz7uBAVNSrUIMYrv8O9tm9XRAjKmp60sGUBMYu1H3kmYFdQupTGkcTUvK6T0sCQXicfdVw10A8t47GEgwm5KmPSXL5LG5DHxD4ruOaAxFEo53QiaMBvKTlCoPUpBcAQGwZA4Q2qBL2RVNGu9Q',
+    alt: 'Portrait sketch',
+  },
+  {
+    id: 2,
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuCBKISuYXVtRHdLTgJAVTf-1RDS-SuqZxeoTZ-QUBK21JuOzoHcouNLuM2WTtOgXiaaHujO7U7-1JqG3a4xSMNHol5iJ9TEV32swgqcfozWsJPS2Ho2uZWEEbDpQQSYZozZTenCpVmq4bL6z3p2UkpLj7SHyevuB6VkggBYkEJkXJt-RkUoUpoprGeEGhZRujFQ-dlhD9G180PkKsYfJvcdRU-OLVF0435UiXYwU8VSor1-aTlZw3_OB4xUhrshcnT6hgM2dCxdvGQ',
+    alt: 'Flower painting',
+  },
+  {
+    id: 3,
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuCpqY-cudSOsOifibWYQhGKoNROhcGTqWXIj7FUwUl0kziM-f2BAz__C4-UQC8DLs502zl2zkUMtoZ8d0L5VytQA_kSBc0Gh6Fv-D-sSYAfBNjYgFuDV7DK5uo3KuzPhZsrFHMemBL9UCUZ_uoPbORxY-6kBSUQedmV5reG8KQ_dMSNBxzIqicId7QE4cIa0MTLv1p_pcOVGmM0CKngI-zaGQgMNpd1I-mgVMfQHilJzaNPYHUdBFsxDSKSHkH7lFF4UJHHGe5lqEY',
+    alt: 'Architecture drawing',
+  },
+  {
+    id: 4,
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDqPPV0Dzn_zCTc_HOG_M8RnimY-q0ocoNIHhuoDAgbqrFwPNwB5To8H60lxGNCMiUlgFwpmUVcMSqLW7f8tFRus-WgNqCGohq7gNqmp_y8PeLUZKv13bpJGP7EPUKkn4ZJM-cbl9aRplfVNlGzrvwBPYQR--Y23TD_ldD8VsGDdAhCIqa3k0SoYEkh7xHnTe3b5YmxCAKl4-ZxMKjuxlDjwhUIE63604uL3Qbesc8rC5dccY6pdn61kWtXoVthOn2SByWeinisA-g',
+    alt: 'Landscape painting',
+  },
 ]
 
 export default function QualitySection() {
   return (
-    <section className="py-14 bg-[#1b0f0f]">
-      <div className="max-w-[980px] mx-auto px-4 md:px-5">
-        <div className="mb-8">
-          <h2 className="text-base font-semibold text-[#f0e6e6]">See the Quality of Feedback</h2>
-          <div className="h-0.5 w-24 bg-[#a43a2b] mt-3" />
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {examples.map((example) => (
-            <div
-              key={example.id}
-              className="relative aspect-square rounded-xl overflow-hidden bg-[#2a1717]"
-            >
-              <Image
-                src={example.image}
-                alt={example.alt}
-                fill
-                className="object-cover"
-                unoptimized
+    <section className="py-14">
+      <div className="max-w-[960px] mx-auto">
+        <h2 className="text-white text-[22px] font-bold tracking-[-0.015em] px-4 pb-3 pt-5 border-b-2 border-[#d41111]/30">
+          See the Quality of Feedback
+        </h2>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6 p-4">
+          {examples.map((e) => (
+            <div key={e.id} className="flex flex-col gap-3">
+              <div
+                className="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg"
+                style={{ backgroundImage: `url(${e.image})` }}
+                aria-label={e.alt}
               />
             </div>
           ))}

@@ -1,77 +1,67 @@
 import Link from 'next/link'
-import Image from 'next/image'
 
 export default function Hero() {
   return (
-    <section className="bg-[#1b0f0f] text-white pt-24 pb-20">
-      <div className="max-w-[980px] mx-auto px-4 md:px-5">
-        <div className="grid lg:grid-cols-2 gap-14 items-center">
-          {/* Sol Taraf */}
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-5xl font-extrabold leading-[1.15] tracking-tight">
-                Expert Feedback for
-                <br />
-                Your Sketches
+    <section className="mt-10 md:mt-16">
+      <div className="max-w-[960px] mx-auto px-4 sm:px-10 md:px-20 lg:px-40">
+        <div className="flex flex-col gap-6 px-4 py-10 md:gap-8 md:flex-row md:items-center">
+          {/* Sol taraf */}
+          <div className="flex flex-col gap-6 md:min-w-[400px] md:gap-8 md:justify-center md:flex-1">
+            <div className="flex flex-col gap-4 text-left">
+              <h1 className="text-white text-4xl font-black leading-tight tracking-[-0.033em] md:text-5xl">
+                Expert Feedback for Your Sketches
               </h1>
-              <p className="text-base text-[#cfc5c5] max-w-md">
+              <h2 className="text-white/80 text-base md:text-lg">
                 Elevate your art with professional critiques from seasoned artists. Transform your practice with personalized, in-depth guidance.
-              </p>
+              </h2>
             </div>
 
-            {/* CTA Button */}
-            <div>
+            {/* CTA */}
+            <div className="relative max-w-[480px]">
               <Link
                 href="/auth/signup"
-                className="inline-flex items-center justify-center relative px-6 py-3 rounded-md bg-[#e2465b] hover:bg-[#d23b50] transition-colors font-semibold"
+                className="flex w-full min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 md:h-12 md:px-5 bg-[#9F2241] text-white text-sm font-bold md:text-base transition-colors hover:bg-[#A45D40]"
               >
-                <span className="absolute -left-6 top-1/2 -translate-y-1/2 h-7 w-7 rounded-full bg-yellow-400 text-black text-[10px] font-extrabold grid place-items-center shadow">free</span>
-                Get Feedback Now
+                <span className="truncate">Get Feedback Now</span>
               </Link>
-            </div>
-
-            {/* Pricing Chips */}
-            <div id="pricing" className="flex flex-wrap gap-3 pt-2">
-              <div className="inline-flex items-center gap-2 rounded-full bg-[#2a1717] border border-[#4b2b2b] px-3 py-1 text-sm">
-                <span className="inline-flex items-center gap-1">
-                  <span className="rounded bg-black/60 px-2 py-0.5 text-[11px]">1</span>
-                  <span className="text-[#cfc5c5]">Feedback</span>
-                </span>
-                <span className="font-semibold text-[#f1996b]">$9.99</span>
-              </div>
-
-              <div className="relative inline-flex items-center gap-2 rounded-full bg-[#2a1717] border-2 border-[#eaa24f] px-3 py-1 text-sm shadow">
-                <span className="inline-flex items-center gap-1">
-                  <span className="rounded bg-black/60 px-2 py-0.5 text-[11px]">5</span>
-                  <span>Feedback</span>
-                </span>
-                <span className="font-semibold">$39.99</span>
-                <span className="absolute -right-2 -top-2 text-yellow-400">★</span>
-              </div>
-
-              <div className="inline-flex items-center gap-2 rounded-full bg-[#2a1717] border border-[#4b2b2b] px-3 py-1 text-sm">
-                <span className="inline-flex items-center gap-1">
-                  <span className="rounded bg-black/60 px-2 py-0.5 text-[11px]">10</span>
-                  <span className="text-[#cfc5c5]">Feedback</span>
-                </span>
-                <span className="font-semibold text-[#f1996b]">$69.99</span>
+              <div className="absolute -top-4 -left-4 -rotate-12 pointer-events-none">
+                <svg className="drop-shadow-lg" height="80" width="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M82.8,22.2C72.3,13.1,59.2,12.7,47.9,18.1C36.6,23.5,28.8,34.4,29.9,46.7 C31.1,59.0,41.1,69.5,53.8,71.1C66.5,72.8,78.8,65.3,85.5,54.5 C92.2,43.7,93.3,31.3,82.8,22.2Z" fill="#D8753B" stroke="#221010" strokeWidth="2.5" />
+                </svg>
+                <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-lg font-bold text-[#221010]">Free</span>
               </div>
             </div>
-          </div>
 
-          {/* Sağ Taraf - Örnek Görsel */}
-          <div className="relative flex justify-end">
-            <div className="relative aspect-square w-[420px] rounded-2xl overflow-hidden bg-white shadow-xl">
-              <Image
-                src="/images/hero-example.jpg"
-                alt="Example artwork"
-                fill
-                className="object-cover"
-                priority
-                unoptimized
-              />
+            {/* Chip fiyatlar */}
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4 px-4 sm:justify-start">
+              <div className="flex items-center justify-center gap-4 rounded-lg bg-white/5 px-4 py-2 text-center text-white backdrop-blur-sm transition-all hover:bg-white/10">
+                <span className="font-bold">1</span>
+                <span className="text-sm">Feedback</span>
+                <span className="font-bold text-[#D8753B]">$9.99</span>
+              </div>
+              <div className="hidden sm:block w-px h-6 bg-white/10" />
+              <div className="relative flex items-center justify-center gap-4 rounded-lg bg-white/10 px-4 py-2 text-center text-white backdrop-blur-sm border-2 border-[#D8753B]/60 transition-all hover:bg-white/15 scale-105 shadow-lg shadow-[#D8753B]/10">
+                <div className="absolute -top-3 -right-3 rotate-12">
+                  <svg className="text-[#D8753B] drop-shadow-md" fill="currentColor" height="32" width="32" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <span className="font-bold">5</span>
+                <span className="text-sm">Feedback</span>
+                <span className="font-bold text-[#D8753B]">$39.99</span>
+              </div>
+              <div className="hidden sm:block w-px h-6 bg-white/10" />
+              <div className="flex items-center justify-center gap-4 rounded-lg bg-white/5 px-4 py-2 text-center text-white backdrop-blur-sm transition-all hover:bg-white/10">
+                <span className="font-bold">10</span>
+                <span className="text-sm">Feedback</span>
+                <span className="font-bold text-[#D8753B]">$69.99</span>
+              </div>
             </div>
           </div>
+
+          {/* Sağda görsel - background-image */}
+          <div className="w-full aspect-square rounded-xl bg-center bg-no-repeat bg-cover md:min-w-[400px] md:flex-1" style={{
+            backgroundImage:
+              'url(https://lh3.googleusercontent.com/aida-public/AB6AXuCBhqcJPuHfQ-yt3Y13dZv6a8q_5HPR0SkBCmCpYk7raY4HKk2ivqgbN8y1ntE6SwF2hR7rfAHMv38XEPOvW6Y1v8IKmeJU2Z5-fsYyS3AMvyXWXG4X2QcS87KIqbgNILPg0ofv9LVhq2SVLiXsvuIavZJlDiy8PshU-crkEpN1BKNXzaErWg6fhCw54BqTyGjni3-9gPC4pbsol0n1-fK95Ck_n1aGlwYoybjfyrJHAa4Ho-pl5C3XjbMquBeechBb9xMKZbAFb5o)'
+          }} />
         </div>
       </div>
     </section>

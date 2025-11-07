@@ -2,22 +2,26 @@ import Link from 'next/link'
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 bg-[#1b0f0f] border-b border-[#3a2222]">
-      <div className="max-w-[980px] mx-auto px-4 md:px-5 py-3 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <svg className="w-4 h-4 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-          <span className="text-sm md:text-base font-semibold text-white tracking-wide">SketchSage</span>
-        </Link>
+    <header className="border-b border-b-[#482323]">
+      <div className="max-w-[960px] mx-auto px-4 sm:px-10 py-3 flex items-center justify-between">
+        {/* Sol: logo */}
+        <div className="flex items-center gap-4 text-white">
+          <div className="w-4 h-4 text-[#D8753B]">
+            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z" fill="currentColor"></path>
+            </svg>
+          </div>
+          <h2 className="text-white text-xl font-bold leading-tight tracking-[-0.015em]">SketchSage</h2>
+        </div>
 
-        {/* Navigation */}
-        <nav className="hidden md:flex items-center gap-7 text-sm">
-          <a href="#how-it-works" className="text-gray-300 hover:text-white transition-colors">How It Works</a>
-          <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</a>
-          <a href="#faq" className="text-gray-300 hover:text-white transition-colors">FAQ</a>
-          <Link href="/auth/login" className="text-gray-300 hover:text-white transition-colors">Login</Link>
+        {/* Sağ: nav */}
+        <nav className="hidden sm:flex flex-1 justify-end gap-8">
+          <div className="flex items-center gap-9 text-white text-sm font-medium">
+            <a href="#how-it-works">How It Works</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+            <Link href="/auth/login">Login</Link>
+          </div>
         </nav>
       </div>
     </header>
