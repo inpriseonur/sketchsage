@@ -9,17 +9,18 @@ const examples = [
 
 export default function QualitySection() {
   return (
-    <section className="py-20 bg-[#1a1212]">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-white mb-12">
-          See the Quality of Feedback
-        </h2>
+    <section className="py-16 bg-[#1b0f0f]">
+      <div className="max-w-6xl mx-auto px-5">
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold text-[#f0e6e6]">See the Quality of Feedback</h2>
+          <div className="h-0.5 w-24 bg-[#a43a2b] mt-3" />
+        </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {examples.map((example) => (
             <div
               key={example.id}
-              className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-800 hover:scale-105 transition-transform"
+              className="relative aspect-square rounded-xl overflow-hidden bg-[#2a1717]"
             >
               <Image
                 src={example.image}
