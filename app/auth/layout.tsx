@@ -42,13 +42,15 @@ export default async function AuthLayout({
         <div className="hidden lg:flex lg:w-1/2 xl:w-2/5 p-12 pt-32">
           <div className="w-full max-w-lg mx-auto space-y-6">
             {examples?.map((example: AuthExample) => (
-              <div key={example.id} className="group relative overflow-hidden rounded-2xl">
+              <div key={example.id} className="group relative overflow-hidden rounded-2xl bg-gray-800">
                 <div className="aspect-[4/3] relative">
                   <Image
                     src={example.image_url}
                     alt={example.title}
                     fill
                     className="object-cover"
+                    unoptimized
+                    priority
                   />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
