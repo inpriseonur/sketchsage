@@ -2,7 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 
 export default async function LandingManagement() {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   // Landing content verilerini çek
   const { data: landingContent } = await supabase

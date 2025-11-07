@@ -7,7 +7,7 @@ import Footer from '@/components/landing/Footer'
 import { createClient } from '@/lib/supabase/server'
 
 export default async function Home() {
-  const supabase = createClient()
+  const supabase = await createClient()
   
   // Hero içeriğini çek
   const { data: heroData } = await supabase

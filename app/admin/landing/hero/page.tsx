@@ -3,7 +3,7 @@ import HeroEditor from '@/components/admin/HeroEditor'
 import Link from 'next/link'
 
 export default async function HeroManagementPage() {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const { data, error } = await supabase
     .from('landing_content')
