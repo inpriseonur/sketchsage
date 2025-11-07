@@ -3,13 +3,12 @@ import type { NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 
 export async function middleware(request: NextRequest) {
-  const { supabaseResponse, user } = await updateSession(request)
+  // Auth sayfalarını middleware'den geçirme
+  if (request.nextUrl.pathname.startsWith('/auth')) {
+    return NextResponse.next()
+  }
 
-  // Public routes - auth gerekmez
-  const publicRoutes = ['/', '/auth/login', '/auth/signup', '/auth/forgot-password', '/auth/reset-password', '/gallery']
-  const isPublicRoute = publicRoutes.some(route => 
-    request.nextUrl.pathname === route || request.nextUrl.pathname.startsWith('/auth/')
-  )
+  const { supabaseResponse, user } = await updateSession(request)
 
   // User routes - auth gerekir
   if (request.nextUrl.pathname.startsWith('/user') || 
@@ -28,9 +27,6 @@ export async function middleware(request: NextRequest) {
     if (!user) {
       return NextResponse.redirect(new URL('/auth/login', request.url))
     }
-    
-    // Admin role kontrolü yapılacak (user metadata'dan)
-    // Şimdilik basit kontrol, daha sonra geliştireceğiz
   }
 
   return supabaseResponse
