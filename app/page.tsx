@@ -4,8 +4,21 @@ import QualitySection from '@/components/landing/QualitySection'
 import HowItWorks from '@/components/landing/HowItWorks'
 import FAQ from '@/components/landing/FAQ'
 import Footer from '@/components/landing/Footer'
+import { createClient } from '@/lib/supabase/server'
 
-export default function Home() {
+export default async function Home() {
+  const supabase = createClient()
+  
+  // Hero içeriğini çek
+  const { data: heroData } = await supabase
+    .from('landing_content')
+    .select('content')
+    .eq('section', 'hero')
+    .eq('language', 'en')
+    .single()
+
+  const heroContent = heroData?.content as any
+  
   return (
     <div style={{ backgroundColor: '#221010', minHeight: '100vh', width: '100%' }}>
       <div style={{ 
@@ -20,7 +33,7 @@ export default function Home() {
           flexDirection: 'column',
           gap: '80px'
         }}>
-          <Hero />
+          <Hero content={heroContent} />
           <QualitySection />
           <HowItWorks />
           <FAQ />

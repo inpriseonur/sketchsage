@@ -1,6 +1,19 @@
 import Link from 'next/link'
 
-export default function Hero() {
+interface HeroContent {
+  title: string
+  subtitle: string
+  button_text: string
+  media_url?: string
+}
+
+export default function Hero({ content }: { content?: HeroContent }) {
+  // Varsayılan değerler
+  const title = content?.title || 'Expert Feedback for Your Sketches'
+  const subtitle = content?.subtitle || 'Elevate your art with professional critiques from seasoned artists. Transform your practice with personalized, in-depth guidance.'
+  const buttonText = content?.button_text || 'Get Feedback Now'
+  const mediaUrl = content?.media_url || 'https://lh3.googleusercontent.com/aida-public/AB6AXuCBhqcJPuHfQ-yt3Y13dZv6a8q_5HPR0SkBCmCpYk7raY4HKk2ivqgbN8y1ntE6SwF2hR7rfAHMv38XEPOvW6Y1v8IKmeJU2Z5-fsYyS3AMvyXWXG4X2QcS87KIqbgNILPg0ofv9LVhq2SVLiXsvuIavZJlDiy8PshU-crkEpN1BKNXzaErWg6fhCw54BqTyGjni3-9gPC4pbsol0n1-fK95Ck_n1aGlwYoybjfyrJHAa4Ho-pl5C3XjbMquBeechBb9xMKZbAFb5o'
+
   return (
     <section>
         <div className="flex flex-col gap-6 px-4 py-10 md:gap-8 md:flex-row md:items-center">
@@ -8,10 +21,10 @@ export default function Hero() {
           <div className="flex flex-col gap-6 md:min-w-[400px] md:gap-8 md:justify-center md:flex-1">
             <div className="flex flex-col gap-4 text-left">
               <h1 className="text-white text-4xl font-black leading-tight tracking-[-0.033em] md:text-5xl">
-                Expert Feedback for Your Sketches
+                {title}
               </h1>
               <h2 className="text-white/80 text-base md:text-lg">
-                Elevate your art with professional critiques from seasoned artists. Transform your practice with personalized, in-depth guidance.
+                {subtitle}
               </h2>
             </div>
 
@@ -21,7 +34,7 @@ export default function Hero() {
                 href="/auth/signup"
                 className="flex w-full min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 md:h-12 md:px-5 bg-[#9F2241] text-white text-sm font-bold md:text-base transition-colors hover:bg-[#A45D40]"
               >
-                <span className="truncate">Get Feedback Now</span>
+                <span className="truncate">{buttonText}</span>
               </Link>
               <div className="absolute -top-4 -left-4 -rotate-12 pointer-events-none">
                 <svg className="drop-shadow-lg" height="80" width="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -58,8 +71,7 @@ export default function Hero() {
 
           {/* Sağda görsel - background-image */}
           <div className="w-full aspect-square rounded-xl bg-center bg-no-repeat bg-cover md:min-w-[400px] md:flex-1" style={{
-            backgroundImage:
-              'url(https://lh3.googleusercontent.com/aida-public/AB6AXuCBhqcJPuHfQ-yt3Y13dZv6a8q_5HPR0SkBCmCpYk7raY4HKk2ivqgbN8y1ntE6SwF2hR7rfAHMv38XEPOvW6Y1v8IKmeJU2Z5-fsYyS3AMvyXWXG4X2QcS87KIqbgNILPg0ofv9LVhq2SVLiXsvuIavZJlDiy8PshU-crkEpN1BKNXzaErWg6fhCw54BqTyGjni3-9gPC4pbsol0n1-fK95Ck_n1aGlwYoybjfyrJHAa4Ho-pl5C3XjbMquBeechBb9xMKZbAFb5o)'
+            backgroundImage: `url(${mediaUrl})`
           }} />
         </div>
     </section>
