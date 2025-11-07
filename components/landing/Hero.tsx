@@ -3,7 +3,6 @@ import Link from 'next/link'
 export default function Hero() {
   return (
     <section className="mt-10 md:mt-16">
-      <div className="max-w-[960px] mx-auto px-4 sm:px-10 md:px-20 lg:px-40">
         <div className="flex flex-col gap-6 px-4 py-10 md:gap-8 md:flex-row md:items-center">
           {/* Sol taraf */}
           <div className="flex flex-col gap-6 md:min-w-[400px] md:gap-8 md:justify-center md:flex-1">
@@ -63,7 +62,6 @@ export default function Hero() {
               'url(https://lh3.googleusercontent.com/aida-public/AB6AXuCBhqcJPuHfQ-yt3Y13dZv6a8q_5HPR0SkBCmCpYk7raY4HKk2ivqgbN8y1ntE6SwF2hR7rfAHMv38XEPOvW6Y1v8IKmeJU2Z5-fsYyS3AMvyXWXG4X2QcS87KIqbgNILPg0ofv9LVhq2SVLiXsvuIavZJlDiy8PshU-crkEpN1BKNXzaErWg6fhCw54BqTyGjni3-9gPC4pbsol0n1-fK95Ck_n1aGlwYoybjfyrJHAa4Ho-pl5C3XjbMquBeechBb9xMKZbAFb5o)'
           }} />
         </div>
-      </div>
     </section>
   )
 }

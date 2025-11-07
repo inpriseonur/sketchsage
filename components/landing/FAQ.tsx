@@ -21,7 +21,6 @@ const faqs = [
 export default function FAQ() {
   return (
     <section id="faq" className="mt-2">
-      <div className="max-w-[960px] mx-auto">
         <h2 className="text-white text-[22px] font-bold tracking-[-0.015em] px-4 pb-3 pt-5 border-b-2 border-[#d41111]/30">
           Frequently Asked Questions
         </h2>
@@ -33,7 +32,6 @@ export default function FAQ() {
             </div>
           ))}
         </div>
-      </div>
     </section>
   )
 }

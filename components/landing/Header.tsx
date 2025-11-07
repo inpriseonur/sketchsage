@@ -3,7 +3,7 @@ import Link from 'next/link'
 export default function Header() {
   return (
     <header className="border-b border-b-[#482323]">
-      <div className="max-w-[960px] mx-auto px-4 sm:px-10 py-3 flex items-center justify-between">
+      <div className="px-4 sm:px-10 py-3 flex items-center justify-between">
         {/* Sol: logo */}
         <div className="flex items-center gap-4 text-white">
           <div className="w-4 h-4 text-[#D8753B]">

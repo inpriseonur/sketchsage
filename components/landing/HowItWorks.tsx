@@ -34,7 +34,6 @@ const steps = [
 export default function HowItWorks() {
   return (
     <section id="how-it-works">
-      <div className="max-w-[960px] mx-auto">
         <h2 className="text-white text-[22px] font-bold tracking-[-0.015em] px-4 pb-3 pt-5 border-b-2 border-[#d41111]/30">
           How It Works
         </h2>
@@ -69,7 +68,6 @@ export default function HowItWorks() {
             </div>
           </div>
         </div>
-      </div>
     </section>
   )
 }
