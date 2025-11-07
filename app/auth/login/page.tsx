@@ -68,9 +68,9 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Başlık */}
-      <div className="space-y-2">
+      <div className="space-y-3">
         <h1 className="text-4xl font-bold leading-tight">
           Welcome Back to<br />SketchSage
         </h1>
@@ -81,10 +81,10 @@ export default function LoginPage() {
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-7">
         {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium mb-2">
+          <label htmlFor="email" className="block text-sm font-medium mb-3">
             Email
           </label>
           <input
@@ -94,13 +94,13 @@ export default function LoginPage() {
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             placeholder="Enter your email"
-            className="w-full px-4 py-3 bg-[#252837] border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-500"
+            className="w-full px-4 py-4 bg-[#252837] border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-500 text-base"
           />
         </div>
 
         {/* Password */}
         <div>
-          <label htmlFor="password" className="block text-sm font-medium mb-2">
+          <label htmlFor="password" className="block text-sm font-medium mb-3">
             Password
           </label>
           <input
@@ -110,11 +110,11 @@ export default function LoginPage() {
             value={formData.password}
             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
             placeholder="Enter your password"
-            className="w-full px-4 py-3 bg-[#252837] border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-500"
+            className="w-full px-4 py-4 bg-[#252837] border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-500 text-base"
           />
           <Link
             href="/auth/forgot-password"
-            className="block text-sm text-gray-400 hover:text-white mt-2 text-right"
+            className="block text-sm text-gray-400 hover:text-white mt-3 text-right"
           >
             Forgot Password?
           </Link>
@@ -124,14 +124,14 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed rounded-lg font-medium transition-colors"
+          className="w-full py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed rounded-lg font-semibold text-base transition-colors"
         >
           {loading ? 'Logging in...' : 'Log In'}
         </button>
       </form>
 
       {/* Divider */}
-      <div className="relative">
+      <div className="relative my-8">
         <div className="absolute inset-0 flex items-center">
           <div className="w-full border-t border-gray-700"></div>
         </div>
@@ -141,7 +141,7 @@ export default function LoginPage() {
       </div>
 
       {/* OAuth Buttons */}
-      <div className="space-y-3">
+      <div className="space-y-4">
         <button
           onClick={handleGoogleLogin}
           type="button"
