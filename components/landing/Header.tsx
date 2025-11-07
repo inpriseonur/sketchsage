@@ -3,7 +3,7 @@ import Link from 'next/link'
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-[#1b0f0f] border-b border-[#3a2222]">
-      <div className="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
+      <div className="max-w-[980px] mx-auto px-4 md:px-5 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <svg className="w-4 h-4 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
@@ -14,18 +14,10 @@ export default function Header() {
 
         {/* Navigation */}
         <nav className="hidden md:flex items-center gap-7 text-sm">
-          <a href="#how-it-works" className="text-gray-300 hover:text-white transition-colors">
-            How It Works
-          </a>
-          <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">
-            Pricing
-          </a>
-          <a href="#faq" className="text-gray-300 hover:text-white transition-colors">
-            FAQ
-          </a>
-          <Link href="/auth/login" className="text-gray-300 hover:text-white transition-colors">
-            Login
-          </Link>
+          <a href="#how-it-works" className="text-gray-300 hover:text-white transition-colors">How It Works</a>
+          <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</a>
+          <a href="#faq" className="text-gray-300 hover:text-white transition-colors">FAQ</a>
+          <Link href="/auth/login" className="text-gray-300 hover:text-white transition-colors">Login</Link>
         </nav>
       </div>
     </header>

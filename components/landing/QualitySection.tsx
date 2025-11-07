@@ -9,10 +9,10 @@ const examples = [
 
 export default function QualitySection() {
   return (
-    <section className="py-16 bg-[#1b0f0f]">
-      <div className="max-w-6xl mx-auto px-5">
+    <section className="py-14 bg-[#1b0f0f]">
+      <div className="max-w-[980px] mx-auto px-4 md:px-5">
         <div className="mb-8">
-          <h2 className="text-xl font-semibold text-[#f0e6e6]">See the Quality of Feedback</h2>
+          <h2 className="text-base font-semibold text-[#f0e6e6]">See the Quality of Feedback</h2>
           <div className="h-0.5 w-24 bg-[#a43a2b] mt-3" />
         </div>
 

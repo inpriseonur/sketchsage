@@ -3,9 +3,9 @@ import Image from 'next/image'
 
 export default function Hero() {
   return (
-    <section className="bg-[#1b0f0f] text-white pt-20 pb-16">
-      <div className="max-w-6xl mx-auto px-5">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <section className="bg-[#1b0f0f] text-white pt-24 pb-20">
+      <div className="max-w-[980px] mx-auto px-4 md:px-5">
+        <div className="grid lg:grid-cols-2 gap-14 items-center">
           {/* Sol Taraf */}
           <div className="space-y-8">
             <div className="space-y-4">
@@ -32,7 +32,6 @@ export default function Hero() {
 
             {/* Pricing Chips */}
             <div id="pricing" className="flex flex-wrap gap-3 pt-2">
-              {/* Chip */}
               <div className="inline-flex items-center gap-2 rounded-full bg-[#2a1717] border border-[#4b2b2b] px-3 py-1 text-sm">
                 <span className="inline-flex items-center gap-1">
                   <span className="rounded bg-black/60 px-2 py-0.5 text-[11px]">1</span>
@@ -61,8 +60,8 @@ export default function Hero() {
           </div>
 
           {/* Sağ Taraf - Örnek Görsel */}
-          <div className="relative">
-            <div className="relative aspect-square rounded-2xl overflow-hidden bg-white shadow-xl max-w-[420px] ml-auto">
+          <div className="relative flex justify-end">
+            <div className="relative aspect-square w-[420px] rounded-2xl overflow-hidden bg-white shadow-xl">
               <Image
                 src="/images/hero-example.jpg"
                 alt="Example artwork"
