@@ -29,11 +29,11 @@ const examples = [
 
 export default function QualitySection() {
   return (
-    <section className="py-14">
+    <section>
         <h2 className="text-white text-[22px] font-bold tracking-[-0.015em] px-4 pb-3 pt-5 border-b-2 border-[#d41111]/30">
           See the Quality of Feedback
         </h2>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6 p-4">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6 p-4 pt-8">
           {examples.map((e) => (
             <div key={e.id} className="flex flex-col gap-3">
               <div

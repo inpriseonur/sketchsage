@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function Hero() {
   return (
-    <section className="mt-10 md:mt-16">
+    <section className="mt-12 md:mt-20">
         <div className="flex flex-col gap-6 px-4 py-10 md:gap-8 md:flex-row md:items-center">
           {/* Sol taraf */}
           <div className="flex flex-col gap-6 md:min-w-[400px] md:gap-8 md:justify-center md:flex-1">

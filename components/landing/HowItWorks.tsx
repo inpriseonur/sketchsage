@@ -37,7 +37,7 @@ export default function HowItWorks() {
         <h2 className="text-white text-[22px] font-bold tracking-[-0.015em] px-4 pb-3 pt-5 border-b-2 border-[#d41111]/30">
           How It Works
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 p-4 md:p-8 text-center text-white">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 p-4 pt-10 md:p-8 md:pt-12 text-center text-white">
           <div className="flex flex-col items-center gap-4">
             <div className="flex items-center justify-center size-24 bg-[#A45D40]/20 rounded-full border-2 border-[#D8753B]/50 p-4 backdrop-blur-sm">
               <svg className="w-12 h-12 text-[#D8753B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
