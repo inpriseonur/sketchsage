@@ -244,6 +244,38 @@ export interface Database {
           created_at?: string
         }
       }
+      auth_page_examples: {
+        Row: {
+          id: string
+          image_url: string
+          title: string
+          description: string
+          display_order: number
+          is_active: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          image_url: string
+          title: string
+          description: string
+          display_order?: number
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          image_url?: string
+          title?: string
+          description?: string
+          display_order?: number
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never
