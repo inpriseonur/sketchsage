@@ -56,7 +56,7 @@ export default function Sidebar({ user, credits }: { user: User; credits: number
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-[#161a25] border-r border-slate-700/50 p-4 z-40 transition-transform duration-300 flex flex-col justify-between text-slate-200 ${
+        className={`fixed top-0 left-0 h-full w-64 bg-[#161a25] border-r border-slate-700/50 p-4 z-50 transition-transform duration-300 flex flex-col justify-between text-slate-200 ${
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
