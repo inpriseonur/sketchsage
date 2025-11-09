@@ -53,6 +53,7 @@ export default function MyReviewsClient({
   }, [initialReviews, searchQuery])
 
   const handleReviewSuccess = () => {
+    console.log('handleReviewSuccess called, refreshing...')
     // Refresh the page to get updated reviews list and credits
     router.refresh()
   }
