@@ -77,8 +77,7 @@ export default function Hero({ content, packages = [] }: { content?: HeroContent
                             </svg>
                           </div>
                         )}
-                        <span className="font-bold">{pkg.credits}</span>
-                        <span className="text-sm">Feedback</span>
+                        <span className="text-sm font-bold">{pkg.name}</span>
                         <span className="font-bold text-[#D8753B]">${pkg.price_usd}</span>
                       </div>
                     </div>
