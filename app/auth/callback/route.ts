@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     await supabase.auth.exchangeCodeForSession(code)
   }
 
-  // Başarılı girişten sonra evaluations sayfasına yönlendir
-  return NextResponse.redirect(`${origin}/evaluations`)
+  // Başarılı girişten sonra my-reviews sayfasına yönlendir
+  return NextResponse.redirect(`${origin}/my-reviews`)
 }
 

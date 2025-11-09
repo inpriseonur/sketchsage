@@ -57,7 +57,7 @@ Admin Page
 
 Kullanıcı uygulamayı ilk açtığında landingpage ile karşılaşır, hero alanından Get Feedback Now butonuna basınca karşına modern ve sanatsal görünümlü bir modal açılır buraya yüklemek istediği video veya resmi upload etme seçeneğini görür upload işlemi bitince upload ettiği imaj yada videoyu aynı modal’da gösteririz ve altında kendi yorumunu özellikle neye feedback istediğini yazmasını isteriz. Onu da bitirip Send Now butonuna basınca üye giriş ekranına göndeririz, kullanıcı üye olur yada üye girişini yapınca kendi profilim altındaki geçmiş bekleyen değerlendirmeler bölümünü görür.
 
-Kullanıcının zaten bekleyen değerlendirmesi var ise yeni bir değerlendirme gönderemez.
+
 
 Geçmiş değerlendirmeler ekranı
 

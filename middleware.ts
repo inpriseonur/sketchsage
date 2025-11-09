@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest) {
   // User routes - auth gerekir
   if (request.nextUrl.pathname.startsWith('/user') || 
       request.nextUrl.pathname.startsWith('/profile') ||
-      request.nextUrl.pathname.startsWith('/evaluations') ||
+      request.nextUrl.pathname.startsWith('/my-reviews') ||
       request.nextUrl.pathname.startsWith('/buy-credits')) {
     if (!user) {
       const redirectUrl = new URL('/auth/login', request.url)
