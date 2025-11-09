@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Space_Grotesk } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
+import DevLanguageSwitcher from '@/components/DevLanguageSwitcher'
 
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], weight: ['400','500','700'] })
 
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className={`${spaceGrotesk.className} bg-[#221010]`}> {/* koyu arka plan */}
         {children}
         <Toaster position="top-right" />
+        <DevLanguageSwitcher />
       </body>
     </html>
   )
