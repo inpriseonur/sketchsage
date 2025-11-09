@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { headers } from 'next/headers'
@@ -13,6 +14,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'No signature' }, { status: 400 })
     }
 
+    // Stripe ayarlarını almak için normal client
     const supabase = await createClient()
 
     // Stripe ayarlarını çek
@@ -62,20 +64,23 @@ export async function POST(request: Request) {
           return NextResponse.json({ error: 'Missing metadata' }, { status: 400 })
         }
 
+        // Admin client kullan (RLS bypass)
+        const adminClient = createAdminClient()
+
         // Kullanıcının mevcut kredisini al
-        const { data: profile, error: profileError } = await supabase
+        const { data: profile, error: profileError } = await adminClient
           .from('users_profile')
           .select('credits')
           .eq('id', userId)
           .single()
 
         if (profileError || !profile) {
-          console.error('User profile not found:', userId)
+          console.error('User profile not found:', userId, profileError)
           return NextResponse.json({ error: 'User not found' }, { status: 404 })
         }
 
         // Kredileri ekle
-        const { error: updateError } = await supabase
+        const { error: updateError } = await adminClient
           .from('users_profile')
           .update({ 
             credits: profile.credits + creditsToAdd,
@@ -89,7 +94,7 @@ export async function POST(request: Request) {
         }
 
         // Transaction kaydı oluştur
-        const { error: txError } = await supabase
+        const { error: txError } = await adminClient
           .from('transactions')
           .insert({
             user_id: userId,
