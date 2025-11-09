@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
+import { getTranslations } from '@/lib/i18n'
 import { redirect } from 'next/navigation'
 
 export default async function PaymentSuccessPage({
@@ -9,6 +10,7 @@ export default async function PaymentSuccessPage({
 }) {
   const { session_id } = await searchParams
   const supabase = await createClient()
+  const t = await getTranslations()
   
   const { data: { user } } = await supabase.auth.getUser()
 
@@ -36,20 +38,20 @@ export default async function PaymentSuccessPage({
 
         {/* Title */}
         <h1 className="text-3xl font-bold text-white mb-3">
-          Payment Successful!
+          {t.payment.success.title}
         </h1>
 
         {/* Description */}
         <p className="text-gray-400 mb-6">
-          Your credits have been added to your account
+          {t.payment.success.message}
         </p>
 
         {/* Credits Info */}
         {user && (
           <div className="bg-[#0f1117] border border-gray-700 rounded-lg p-4 mb-6">
-            <p className="text-sm text-gray-400 mb-1">Your Current Balance</p>
+            <p className="text-sm text-gray-400 mb-1">{t.credits.balance}</p>
             <p className="text-4xl font-bold text-white">{credits}</p>
-            <p className="text-sm text-gray-500">Credits</p>
+            <p className="text-sm text-gray-500">{t.credits.buy.split(' ')[1]}</p>
           </div>
         )}
 
@@ -66,13 +68,13 @@ export default async function PaymentSuccessPage({
             href="/my-reviews"
             className="block w-full py-3 bg-[#A94438] hover:bg-[#b94848] text-white font-semibold rounded-lg transition-colors"
           >
-            Start New Review
+            {t.payment.success.button}
           </Link>
           <Link
             href="/"
             className="block w-full py-3 bg-white/5 hover:bg-white/10 text-white border border-gray-700 rounded-lg transition-colors"
           >
-            Back to Home
+            {t.payment.cancelled.button}
           </Link>
         </div>
       </div>

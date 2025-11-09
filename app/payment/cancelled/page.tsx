@@ -1,6 +1,9 @@
 import Link from 'next/link'
+import { getTranslations } from '@/lib/i18n'
 
-export default function PaymentCancelledPage() {
+export default async function PaymentCancelledPage() {
+  const t = await getTranslations()
+  
   return (
     <div className="min-h-screen bg-[#0f1117] flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-[#1a1d2e] border border-gray-800 rounded-lg p-8 text-center">
@@ -13,12 +16,12 @@ export default function PaymentCancelledPage() {
 
         {/* Title */}
         <h1 className="text-3xl font-bold text-white mb-3">
-          Payment Cancelled
+          {t.payment.cancelled.title}
         </h1>
 
         {/* Description */}
         <p className="text-gray-400 mb-8">
-          Your payment was cancelled. No charges were made to your account.
+          {t.payment.cancelled.message}
         </p>
 
         {/* Actions */}
@@ -27,13 +30,13 @@ export default function PaymentCancelledPage() {
             href="/"
             className="block w-full py-3 bg-[#A94438] hover:bg-[#b94848] text-white font-semibold rounded-lg transition-colors"
           >
-            Try Again
+            {t.payment.cancelled.button}
           </Link>
           <Link
             href="/"
             className="block w-full py-3 bg-white/5 hover:bg-white/10 text-white border border-gray-700 rounded-lg transition-colors"
           >
-            Back to Home
+            {t.payment.cancelled.button}
           </Link>
         </div>
       </div>

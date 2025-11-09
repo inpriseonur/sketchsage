@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { createClient } from '@/lib/supabase/client'
+import { useTranslations } from '@/lib/i18n/client'
 
 interface Package {
   id: string
@@ -22,6 +23,7 @@ interface PackageCardProps {
 }
 
 export default function PackageCard({ pkg, isFeatured, showDivider }: PackageCardProps) {
+  const t = useTranslations()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
 
@@ -36,7 +38,7 @@ export default function PackageCard({ pkg, isFeatured, showDivider }: PackageCar
       if (!user) {
         // Package ID'yi session storage'a kaydet
         sessionStorage.setItem('pendingPackageId', pkg.id)
-        toast('Please login to purchase credits')
+        toast(t.credits.loginRequired)
         router.push('/auth/login')
         return
       }
@@ -65,7 +67,7 @@ export default function PackageCard({ pkg, isFeatured, showDivider }: PackageCar
       }
     } catch (error: any) {
       console.error('Checkout error:', error)
-      toast.error(error.message || 'Failed to start checkout')
+      toast.error(error.message || t.credits.checkoutError)
     } finally {
       setLoading(false)
     }
@@ -93,7 +95,7 @@ export default function PackageCard({ pkg, isFeatured, showDivider }: PackageCar
         )}
         {loading ? (
           <>
-            <span className="text-sm font-bold">Loading...</span>
+            <span className="text-sm font-bold">{t.credits.loading}</span>
             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
           </>
         ) : (
