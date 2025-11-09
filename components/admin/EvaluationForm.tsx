@@ -56,7 +56,7 @@ export default function EvaluationForm({
       if (feedbackType === 'audio' && audioFile) {
         const fileName = `${evaluationId}_${Date.now()}.${audioFile.name.split('.').pop()}`
         const { data: uploadData, error: uploadError } = await supabase.storage
-          .from('sketchsage-storage')
+          .from('user')
           .upload(`admin/audio/${fileName}`, audioFile, {
             cacheControl: '3600',
             upsert: false,
@@ -65,7 +65,7 @@ export default function EvaluationForm({
         if (uploadError) throw uploadError
 
         const { data: urlData } = supabase.storage
-          .from('sketchsage-storage')
+          .from('user')
           .getPublicUrl(uploadData.path)
 
         feedbackUrl = urlData.publicUrl
