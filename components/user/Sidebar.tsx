@@ -54,10 +54,10 @@ export default function Sidebar({ user, credits }: { user: User; credits: number
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar - Desktop: relative, Mobile: fixed overlay */}
       <aside
-        className={`lg:relative lg:translate-x-0 fixed top-0 left-0 h-full w-64 bg-[#161a25] border-r border-slate-700/50 p-4 z-30 transition-transform duration-300 flex flex-col justify-between text-slate-200 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`lg:relative lg:translate-x-0 fixed top-0 left-0 h-full w-64 bg-[#161a25] border-r border-slate-700/50 p-4 lg:z-auto z-30 transition-transform duration-300 flex flex-col justify-between text-slate-200 ${
+          isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
         <div className="flex flex-col gap-4">
