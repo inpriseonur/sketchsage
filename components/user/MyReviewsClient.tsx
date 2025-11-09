@@ -64,6 +64,7 @@ const sortReviews = (reviews: typeof mockReviews) => {
 export default function MyReviewsClient({ credits }: { credits: number }) {
   const [searchQuery, setSearchQuery] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [currentCredits, setCurrentCredits] = useState(credits)
 
   // Filter and sort reviews
   const filteredReviews = useMemo(() => {
@@ -72,6 +73,12 @@ export default function MyReviewsClient({ credits }: { credits: number }) {
     )
     return sortReviews(filtered)
   }, [searchQuery])
+
+  const handleReviewSuccess = () => {
+    // Refresh credits
+    setCurrentCredits(prev => Math.max(0, prev - 1))
+    // TODO: Refresh reviews list from database
+  }
 
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-8">
@@ -87,7 +94,7 @@ export default function MyReviewsClient({ credits }: { credits: number }) {
               Credits Left
             </p>
             <p className="text-2xl font-bold leading-tight text-[#E29D83]">
-              {credits}
+              {currentCredits}
             </p>
           </div>
 
@@ -139,7 +146,12 @@ export default function MyReviewsClient({ credits }: { credits: number }) {
       )}
 
       {/* New Review Modal */}
-      <NewReviewModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <NewReviewModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)}
+        userCredits={currentCredits}
+        onSuccess={handleReviewSuccess}
+      />
     </div>
   )
 }
