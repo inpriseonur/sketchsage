@@ -74,7 +74,7 @@ export default function MyReviewsClient({ credits }: { credits: number }) {
   }, [searchQuery])
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 md:p-8 lg:p-12 w-full">
+    <div className="flex-1 overflow-y-auto p-6 md:p-8 lg:px-12 lg:pb-12 lg:pt-0 w-full">
       <div className="mx-auto max-w-4xl w-full">
         {/* Header */}
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">

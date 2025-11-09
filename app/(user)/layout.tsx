@@ -34,7 +34,7 @@ export default async function UserLayout({
       </div>
       
       {/* Main Content Section */}
-      <section className="flex-1 min-h-screen w-full lg:w-auto">
+      <section className="flex-1 min-h-screen w-full lg:w-auto lg:ml-8 lg:pt-[128px]">
         {children}
       </section>
     </div>
