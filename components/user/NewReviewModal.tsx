@@ -38,6 +38,7 @@ export default function NewReviewModal({
   const [maxVideoSizeMB, setMaxVideoSizeMB] = useState(30)
   
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const isSubmittingRef = useRef(false)
   const supabase = createClient()
 
   // Fetch file size limits on mount
@@ -73,6 +74,7 @@ export default function NewReviewModal({
       setDescription('')
       setIsDragging(false)
       setIsUploading(false)
+      isSubmittingRef.current = false
     }
   }, [isOpen])
 
@@ -198,6 +200,12 @@ export default function NewReviewModal({
   }
 
   const handleSubmit = async () => {
+    // Prevent double submission
+    if (isSubmittingRef.current) {
+      console.log('Already submitting, ignoring duplicate call')
+      return
+    }
+
     if (!uploadedFile || !title.trim()) {
       toast.error('Please provide a title for your submission')
       return
@@ -208,6 +216,8 @@ export default function NewReviewModal({
       return
     }
 
+    // Set flag immediately to prevent double submission
+    isSubmittingRef.current = true
     setStep('submitting')
 
     try {
@@ -264,6 +274,7 @@ export default function NewReviewModal({
       console.error('Submission error:', error)
       toast.error(error.message || 'Failed to submit review')
       setStep('preview')
+      isSubmittingRef.current = false // Reset flag on error
     }
   }
 
