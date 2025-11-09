@@ -44,17 +44,23 @@
       "checkoutError": "Failed to start checkout, redirecting to reviews..."
     },
     "signup": {
-      "title": "Sign Up",
+      "title": "Join SketchSage",
+      "subtitle": "Create an account and take your art to the next level.",
       "email": "Email",
+      "emailPlaceholder": "Enter your email",
       "password": "Password",
+      "passwordPlaceholder": "Create your password",
       "submit": "Sign Up",
+      "submitting": "Signing up...",
       "hasAccount": "Already have an account?",
       "loginLink": "Login",
-      "orContinueWith": "or continue with",
-      "google": "Sign up with Google",
-      "facebook": "Sign up with Facebook",
+      "or": "or",
+      "googleButton": "Sign up with Google",
+      "facebookButton": "Sign up with Facebook",
       "success": "Registration successful! Please check your email.",
-      "error": "An error occurred during registration"
+      "error": "An error occurred during registration",
+      "googleError": "An error occurred during Google sign up",
+      "facebookError": "An error occurred during Facebook sign up"
     }
   },
   "landing": {
