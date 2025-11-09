@@ -255,9 +255,11 @@ export default function NewReviewModal({
       }
 
       // Decrease user credits
+      console.log('Calling decrease_credit RPC...')
       const { data: creditResult, error: creditError } = await supabase
         .rpc('decrease_credit', { user_uuid: user.id })
 
+      console.log('RPC result:', creditResult)
       if (creditError || !creditResult?.success) {
         throw new Error(creditResult?.error || 'Failed to decrease credits')
       }
