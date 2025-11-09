@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     await supabase.auth.exchangeCodeForSession(code)
   }
 
-  // Başarılı girişten sonra my-reviews sayfasına yönlendir
-  return NextResponse.redirect(`${origin}/my-reviews`)
+  // Callback handler sayfasına yönlendir (pending package kontrolü için)
+  return NextResponse.redirect(`${origin}/auth/callback-handler`)
 }
 

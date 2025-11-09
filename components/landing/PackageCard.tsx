@@ -34,6 +34,8 @@ export default function PackageCard({ pkg, isFeatured, showDivider }: PackageCar
 
       // Kullanıcı giriş yapmamışsa login sayfasına yönlendir
       if (!user) {
+        // Package ID'yi session storage'a kaydet
+        sessionStorage.setItem('pendingPackageId', pkg.id)
         toast('Please login to purchase credits')
         router.push('/auth/login')
         return

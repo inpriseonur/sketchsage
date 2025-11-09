@@ -33,6 +33,37 @@ export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled }: 
       if (error) throw error
 
       toast.success('Giriş başarılı!')
+
+      // Eğer pending package varsa, Stripe checkout'a yönlendir
+      const pendingPackageId = sessionStorage.getItem('pendingPackageId')
+      if (pendingPackageId) {
+        sessionStorage.removeItem('pendingPackageId')
+        
+        // Checkout session oluştur
+        try {
+          const response = await fetch('/api/stripe/checkout', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              packageId: pendingPackageId,
+            }),
+          })
+
+          if (response.ok) {
+            const { url } = await response.json()
+            if (url) {
+              window.location.href = url
+              return
+            }
+          }
+        } catch (checkoutError) {
+          console.error('Checkout error:', checkoutError)
+          toast.error('Failed to start checkout, redirecting to reviews...')
+        }
+      }
+
       router.push('/my-reviews')
       router.refresh()
     } catch (error: any) {
