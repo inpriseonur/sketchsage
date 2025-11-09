@@ -147,7 +147,12 @@ Vercel'de "Configure Project" kısmında **Environment Variables** bölümüne �
 ```
 NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJxxx...
+SUPABASE_SERVICE_ROLE_KEY=eyJxxx...
 ```
+
+> ⚠️ **Önemli:** `SUPABASE_SERVICE_ROLE_KEY` Stripe webhook'ları için zorunludur!  
+> Supabase Dashboard → Settings → API → "service_role" key'ini kopyalayın.  
+> Bu key çok gizlidir, **asla frontend'de kullanmayın!**
 
 **Stripe (Opsiyonel - Ödeme için gerekli)**
 ```
