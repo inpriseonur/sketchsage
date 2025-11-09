@@ -1,24 +1,14 @@
-'use client'
+type FAQItem = {
+  question: string
+  answer: string
+}
 
-const faqs = [
-  {
-    question: 'What kind of art can I submit?',
-    answer:
-      'You can submit any form of sketches, including pencil, charcoal, ink, watercolor studies, and digital sketches. Our experts specialize in foundational art skills applicable to any medium.',
-  },
-  {
-    question: 'How long does feedback take?',
-    answer:
-      'Our standard turnaround time is 48-72 hours. We also offer an expedited option for feedback within 24 hours for an additional fee.',
-  },
-  {
-    question: 'Who are the Sages?',
-    answer:
-      'Our Sages are a curated team of professional artists, illustrators, and art educators with years of experience in both creating and teaching art. Each has a proven track record of providing constructive, actionable feedback.',
-  },
-]
+type FAQContent = {
+  questions: FAQItem[]
+}
 
-export default function FAQ() {
+export default function FAQ({ content }: { content?: FAQContent }) {
+  const faqs = content?.questions || []
   return (
     <section id="faq">
         <h2 className="text-white text-[22px] font-bold tracking-[-0.015em] px-4 pb-3 pt-5 border-b-2 border-[#d41111]/30">

@@ -79,10 +79,10 @@ export default async function LandingManagement() {
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold text-white">Quality Gallery</h2>
           <Link
-            href="/admin/gallery"
+            href="/admin/landing/quality"
             className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
           >
-            Yönet
+            Düzenle
           </Link>
         </div>
         <p className="text-gray-400 text-sm">

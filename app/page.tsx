@@ -25,6 +25,36 @@ export default async function Home() {
     .select('*')
     .eq('is_active', true)
     .order('display_order')
+
+  // Quality section içeriğini çek
+  const { data: qualityData } = await supabase
+    .from('landing_content')
+    .select('content')
+    .eq('section', 'quality')
+    .eq('language', 'en')
+    .single()
+
+  const qualityContent = qualityData?.content as any
+
+  // How It Works içeriğini çek
+  const { data: howItWorksData } = await supabase
+    .from('landing_content')
+    .select('content')
+    .eq('section', 'how_it_works')
+    .eq('language', 'en')
+    .single()
+
+  const howItWorksContent = howItWorksData?.content as any
+
+  // FAQ içeriğini çek
+  const { data: faqData } = await supabase
+    .from('landing_content')
+    .select('content')
+    .eq('section', 'faq')
+    .eq('language', 'en')
+    .single()
+
+  const faqContent = faqData?.content as any
   
   return (
     <div style={{ backgroundColor: '#221010', minHeight: '100vh', width: '100%' }}>
@@ -41,9 +71,9 @@ export default async function Home() {
           gap: '80px'
         }}>
           <Hero content={heroContent} packages={packages || []} />
-          <QualitySection />
-          <HowItWorks />
-          <FAQ />
+          <QualitySection content={qualityContent} />
+          <HowItWorks content={howItWorksContent} />
+          <FAQ content={faqContent} />
         </main>
         <Footer />
       </div>
