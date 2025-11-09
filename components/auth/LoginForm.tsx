@@ -34,7 +34,7 @@ export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled, tr
 
       if (error) throw error
 
-      toast.success('Giriş başarılı!')
+      toast.success(t.success)
 
       // Eğer pending package varsa, Stripe checkout'a yönlendir
       const pendingPackageId = sessionStorage.getItem('pendingPackageId')
@@ -62,14 +62,14 @@ export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled, tr
           }
         } catch (checkoutError) {
           console.error('Checkout error:', checkoutError)
-          toast.error('Failed to start checkout, redirecting to reviews...')
+          toast.error(t.checkoutError)
         }
       }
 
       router.push('/my-reviews')
       router.refresh()
     } catch (error: any) {
-      toast.error(error.message || 'Giriş yapılırken bir hata oluştu')
+      toast.error(error.message || t.error)
     } finally {
       setLoading(false)
     }
@@ -86,7 +86,7 @@ export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled, tr
       })
       if (error) throw error
     } catch (error: any) {
-      toast.error(error.message || 'Google ile giriş yapılırken hata oluştu')
+      toast.error(error.message || t.googleError)
     }
   }
 
@@ -101,7 +101,7 @@ export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled, tr
       })
       if (error) throw error
     } catch (error: any) {
-      toast.error(error.message || 'Facebook ile giriş yapılırken hata oluştu')
+      toast.error(error.message || t.facebookError)
     }
   }
 
@@ -110,11 +110,10 @@ export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled, tr
       {/* Başlık */}
       <div className="space-y-3">
         <h1 className="text-4xl font-bold leading-tight">
-          Welcome Back to<br />SketchSage
+          {t.title}
         </h1>
         <p className="text-gray-400 text-lg">
-          Continue your creative journey and get expert feedback
-          on your artwork.
+          {t.subtitle}
         </p>
       </div>
 
@@ -123,7 +122,7 @@ export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled, tr
         {/* Email */}
         <div>
           <label htmlFor="email" className="block text-sm font-medium mb-3">
-            Email
+            {t.email}
           </label>
           <input
             id="email"
@@ -131,7 +130,7 @@ export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled, tr
             required
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            placeholder="Enter your email"
+            placeholder={t.emailPlaceholder}
             className="w-full px-4 py-4 bg-[#252837] border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-500 text-base"
           />
         </div>
@@ -139,7 +138,7 @@ export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled, tr
         {/* Password */}
         <div>
           <label htmlFor="password" className="block text-sm font-medium mb-3">
-            Password
+            {t.password}
           </label>
           <input
             id="password"
@@ -147,14 +146,14 @@ export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled, tr
             required
             value={formData.password}
             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-            placeholder="Enter your password"
+            placeholder={t.passwordPlaceholder}
             className="w-full px-4 py-4 bg-[#252837] border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-500 text-base"
           />
           <Link
             href="/auth/forgot-password"
             className="block text-sm text-gray-400 hover:text-white mt-3 text-right"
           >
-            Forgot Password?
+            {t.forgotPassword}
           </Link>
         </div>
 
@@ -164,7 +163,7 @@ export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled, tr
           disabled={loading}
           className="w-full py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed rounded-lg font-semibold text-base transition-colors"
         >
-          {loading ? 'Logging in...' : 'Log In'}
+          {loading ? t.submitting : t.submit}
         </button>
       </form>
 
@@ -175,7 +174,7 @@ export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled, tr
             <div className="w-full border-t border-gray-700"></div>
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-4 bg-[#1a1d2e] text-gray-500">or</span>
+            <span className="px-4 bg-[#1a1d2e] text-gray-500">{t.or}</span>
           </div>
         </div>
       )}
@@ -207,7 +206,7 @@ export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled, tr
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                 />
               </svg>
-              Log in with Google
+              {t.googleButton}
             </button>
           )}
 
@@ -220,7 +219,7 @@ export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled, tr
               <svg className="w-5 h-5" fill="#1877F2" viewBox="0 0 24 24">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
               </svg>
-              Log in with Facebook
+              {t.facebookButton}
             </button>
           )}
         </div>
@@ -228,9 +227,9 @@ export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled, tr
 
       {/* Signup Link */}
       <p className="text-center text-gray-400">
-        Don't have an account?{' '}
+        {t.noAccount}{' '}
         <Link href="/auth/signup" className="text-blue-500 hover:text-blue-400 font-medium">
-          Sign Up
+          {t.signupLink}
         </Link>
       </p>
     </div>

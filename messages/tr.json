@@ -23,17 +23,25 @@
   },
   "auth": {
     "login": {
-      "title": "Giriş Yap",
+      "title": "SketchSage'e Tekrar Hoş Geldiniz",
+      "subtitle": "Yaratıcı yolculuğunuza devam edin ve eserleriniz hakkında uzman geri bildirimi alın.",
       "email": "E-posta",
+      "emailPlaceholder": "E-posta adresinizi girin",
       "password": "Şifre",
+      "passwordPlaceholder": "Şifrenizi girin",
+      "forgotPassword": "Şifrenizi mi unuttunuz?",
       "submit": "Giriş Yap",
+      "submitting": "Giriş yapılıyor...",
       "noAccount": "Hesabınız yok mu?",
       "signupLink": "Kaydol",
-      "orContinueWith": "veya devam edin",
-      "google": "Google ile Giriş",
-      "facebook": "Facebook ile Giriş",
+      "or": "veya",
+      "googleButton": "Google ile Giriş Yap",
+      "facebookButton": "Facebook ile Giriş Yap",
       "success": "Giriş başarılı!",
-      "error": "Giriş yapılırken bir hata oluştu"
+      "error": "Giriş yapılırken bir hata oluştu",
+      "googleError": "Google ile giriş yapılırken hata oluştu",
+      "facebookError": "Facebook ile giriş yapılırken hata oluştu",
+      "checkoutError": "Ödeme başlatılamadı, değerlendirmelerinize yönlendiriliyorsunuz..."
     },
     "signup": {
       "title": "Kaydol",

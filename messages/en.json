@@ -23,17 +23,25 @@
   },
   "auth": {
     "login": {
-      "title": "Login",
+      "title": "Welcome Back to SketchSage",
+      "subtitle": "Continue your creative journey and get expert feedback on your artwork.",
       "email": "Email",
+      "emailPlaceholder": "Enter your email",
       "password": "Password",
-      "submit": "Login",
+      "passwordPlaceholder": "Enter your password",
+      "forgotPassword": "Forgot Password?",
+      "submit": "Log In",
+      "submitting": "Logging in...",
       "noAccount": "Don't have an account?",
       "signupLink": "Sign Up",
-      "orContinueWith": "or continue with",
-      "google": "Continue with Google",
-      "facebook": "Continue with Facebook",
+      "or": "or",
+      "googleButton": "Log in with Google",
+      "facebookButton": "Log in with Facebook",
       "success": "Login successful!",
-      "error": "An error occurred during login"
+      "error": "An error occurred during login",
+      "googleError": "An error occurred during Google login",
+      "facebookError": "An error occurred during Facebook login",
+      "checkoutError": "Failed to start checkout, redirecting to reviews..."
     },
     "signup": {
       "title": "Sign Up",
