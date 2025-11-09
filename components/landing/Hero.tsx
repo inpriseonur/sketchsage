@@ -38,13 +38,19 @@ export default function Hero({ content, packages = [] }: { content?: HeroContent
               </h2>
             </div>
 
-            {/* CTA */}
+            {/* CTA - Boya Sıçratma Efektli Buton */}
             <div className="relative max-w-[480px]">
               <Link
                 href="/auth/signup"
-                className="flex w-full min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 md:h-12 md:px-5 bg-[#9F2241] text-white text-sm font-bold md:text-base transition-colors hover:bg-[#A45D40]"
+                className="relative flex w-full min-w-[84px] cursor-pointer items-center justify-center overflow-visible h-14 px-6 md:h-16 md:px-8 text-white text-sm font-bold md:text-base transition-all hover:scale-105 hover:brightness-110"
+                style={{
+                  backgroundImage: 'url(/images/get_review_buton.png)',
+                  backgroundSize: 'contain',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                }}
               >
-                <span className="truncate">{buttonText}</span>
+                <span className="relative z-10 truncate drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">{buttonText}</span>
               </Link>
               <div className="absolute -top-4 -left-4 -rotate-12 pointer-events-none">
                 <svg className="drop-shadow-lg" height="80" width="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
