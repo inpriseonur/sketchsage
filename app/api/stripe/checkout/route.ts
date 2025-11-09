@@ -40,7 +40,7 @@ export async function POST(request: Request) {
 
     // Stripe client oluştur
     const stripe = new Stripe(stripeSecretKey, {
-      apiVersion: '2024-12-18.acacia',
+      apiVersion: '2025-10-29.clover',
     })
 
     // Kullanıcının ülkesini belirle (şimdilik basit - daha sonra IP'ye göre yapılabilir)
