@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 type ReviewStatus = 'pending' | 'in_progress' | 'completed'
 type ReviewType = 'image' | 'video'
-type FeedbackType = 'text' | 'audio'
+type FeedbackType = 'text' | 'audio' | null
 
 type Review = {
   id: string

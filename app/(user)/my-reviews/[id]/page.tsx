@@ -50,7 +50,7 @@ export default async function EvaluationDetailPage({
   
   if (evaluation.user_message) {
     const titleMatch = evaluation.user_message.match(/TITLE:\s*(.+?)(?:\n|$)/)
-    const descMatch = evaluation.user_message.match(/DESCRIPTION:\s*(.+?)$/s)
+    const descMatch = evaluation.user_message.match(/DESCRIPTION:\s*([\s\S]+?)$/)
     
     if (titleMatch && titleMatch[1]) {
       title = titleMatch[1].trim()

@@ -75,7 +75,7 @@ export default function NewReviewModal({
         if (profile) {
           setCurrentCredits(profile.credits)
           if (profile.credits !== userCredits) {
-            toast.info(`Your actual credit balance is ${profile.credits}`)
+            toast(`Your actual credit balance is ${profile.credits}`)
           }
         }
       }
@@ -505,14 +505,14 @@ export default function NewReviewModal({
             <div className="flex gap-3">
               <button
                 onClick={handleCancel}
-                disabled={step === 'submitting'}
+                disabled={isUploading}
                 className="flex-1 py-3 bg-white/5 text-white border border-white/10 rounded-lg hover:bg-white/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSubmit}
-                disabled={!title.trim() || !description.trim() || step === 'submitting'}
+                disabled={!title.trim() || !description.trim() || isUploading}
                 className="flex-1 py-3 bg-gradient-to-r from-[#A94438] to-[#9F2241] text-white font-semibold rounded-lg hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Submit Review (1 Credit)
