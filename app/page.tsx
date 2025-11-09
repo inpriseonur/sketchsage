@@ -5,16 +5,20 @@ import HowItWorks from '@/components/landing/HowItWorks'
 import FAQ from '@/components/landing/FAQ'
 import Footer from '@/components/landing/Footer'
 import { createClient } from '@/lib/supabase/server'
+import { getLocale } from '@/lib/i18n'
 
 export default async function Home() {
   const supabase = await createClient()
+  
+  // Kullanıcının dilini al
+  const locale = await getLocale()
   
   // Hero içeriğini çek
   const { data: heroData } = await supabase
     .from('landing_content')
     .select('content')
     .eq('section', 'hero')
-    .eq('language', 'en')
+    .eq('language', locale)
     .single()
 
   const heroContent = heroData?.content as any
@@ -31,7 +35,7 @@ export default async function Home() {
     .from('landing_content')
     .select('content')
     .eq('section', 'quality')
-    .eq('language', 'en')
+    .eq('language', locale)
     .single()
 
   const qualityContent = qualityData?.content as any
@@ -41,7 +45,7 @@ export default async function Home() {
     .from('landing_content')
     .select('content')
     .eq('section', 'how_it_works')
-    .eq('language', 'en')
+    .eq('language', locale)
     .single()
 
   const howItWorksContent = howItWorksData?.content as any
@@ -51,7 +55,7 @@ export default async function Home() {
     .from('landing_content')
     .select('content')
     .eq('section', 'faq')
-    .eq('language', 'en')
+    .eq('language', locale)
     .single()
 
   const faqContent = faqData?.content as any

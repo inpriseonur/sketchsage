@@ -1,6 +1,9 @@
 import Link from 'next/link'
+import { getTranslations } from '@/lib/i18n'
 
-export default function Header() {
+export default async function Header() {
+  const t = await getTranslations()
+  
   return (
     <header className="border-b border-b-[#482323]">
       <div className="px-4 sm:px-10 py-3 flex items-center justify-between">
@@ -17,10 +20,10 @@ export default function Header() {
         {/* Sağ: nav */}
         <nav className="hidden sm:flex flex-1 justify-end gap-8">
           <div className="flex items-center gap-9 text-white text-sm font-medium">
-            <a href="#how-it-works">How It Works</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#faq">FAQ</a>
-            <Link href="/auth/login">Login</Link>
+            <a href="#how-it-works">{t.nav.howItWorks}</a>
+            <a href="#pricing">{t.nav.pricing}</a>
+            <a href="#faq">{t.nav.faq}</a>
+            <Link href="/auth/login">{t.nav.login}</Link>
           </div>
         </nav>
       </div>

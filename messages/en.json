@@ -19,7 +19,10 @@
     "admin": "Admin",
     "login": "Login",
     "signup": "Sign Up",
-    "logout": "Logout"
+    "logout": "Logout",
+    "howItWorks": "How It Works",
+    "pricing": "Pricing",
+    "faq": "FAQ"
   },
   "auth": {
     "login": {

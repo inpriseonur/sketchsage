@@ -19,7 +19,10 @@
     "admin": "Admin",
     "login": "Giriş Yap",
     "signup": "Kaydol",
-    "logout": "Çıkış Yap"
+    "logout": "Çıkış Yap",
+    "howItWorks": "Nasıl Çalışır",
+    "pricing": "Fiyatlandırma",
+    "faq": "SSS"
   },
   "auth": {
     "login": {
