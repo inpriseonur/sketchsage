@@ -1,0 +1,86 @@
+{
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "success": "Başarılı!",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "create": "Oluştur",
+    "update": "Güncelle",
+    "submit": "Gönder",
+    "back": "Geri"
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "myReviews": "Değerlendirmelerim",
+    "buyCredits": "Kredi Satın Al",
+    "admin": "Admin",
+    "login": "Giriş Yap",
+    "signup": "Kaydol",
+    "logout": "Çıkış Yap"
+  },
+  "auth": {
+    "login": {
+      "title": "Giriş Yap",
+      "email": "E-posta",
+      "password": "Şifre",
+      "submit": "Giriş Yap",
+      "noAccount": "Hesabınız yok mu?",
+      "signupLink": "Kaydol",
+      "orContinueWith": "veya devam edin",
+      "google": "Google ile Giriş",
+      "facebook": "Facebook ile Giriş",
+      "success": "Giriş başarılı!",
+      "error": "Giriş yapılırken bir hata oluştu"
+    },
+    "signup": {
+      "title": "Kaydol",
+      "email": "E-posta",
+      "password": "Şifre",
+      "submit": "Kaydol",
+      "hasAccount": "Zaten hesabınız var mı?",
+      "loginLink": "Giriş Yap",
+      "orContinueWith": "veya devam edin",
+      "google": "Google ile Kaydol",
+      "facebook": "Facebook ile Kaydol",
+      "success": "Kayıt başarılı! Lütfen email'inizi kontrol edin.",
+      "error": "Kayıt olurken bir hata oluştu"
+    }
+  },
+  "landing": {
+    "hero": {
+      "title": "Sanatınızı Geliştirin",
+      "subtitle": "Yapay zeka destekli analizlerle çizimlerinizi bir üst seviyeye taşıyın",
+      "cta": "Hemen Başla"
+    },
+    "packages": {
+      "title": "Kredi Paketleri",
+      "subtitle": "Size uygun paketi seçin"
+    }
+  },
+  "credits": {
+    "balance": "Kredi Bakiyeniz",
+    "buy": "Kredi Satın Al",
+    "insufficient": "Yetersiz kredi"
+  },
+  "evaluation": {
+    "new": "Yeni Değerlendirme",
+    "title": "Başlık",
+    "description": "Açıklama",
+    "uploadImage": "Resim Yükle",
+    "uploadVideo": "Video Yükle",
+    "feedbackType": "Geri Bildirim Tipi",
+    "text": "Metin",
+    "audio": "Sesli",
+    "submit": "Değerlendirme İste",
+    "status": {
+      "pending": "Beklemede",
+      "processing": "İşleniyor",
+      "completed": "Tamamlandı",
+      "failed": "Başarısız"
+    }
+  }
+}
+

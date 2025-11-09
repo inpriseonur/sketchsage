@@ -1,8 +1,10 @@
 import { createClient } from '@/lib/supabase/server'
+import { getTranslations } from '@/lib/i18n'
 import LoginForm from '@/components/auth/LoginForm'
 
 export default async function LoginPage() {
   const supabase = await createClient()
+  const t = await getTranslations()
   
   // OAuth ayarlarını server-side çek
   const { data: settings } = await supabase
@@ -18,6 +20,7 @@ export default async function LoginPage() {
     <LoginForm 
       googleOAuthEnabled={googleEnabled as boolean}
       facebookOAuthEnabled={facebookEnabled as boolean}
+      translations={t}
     />
   )
 }

@@ -1,0 +1,86 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success!",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "submit": "Submit",
+    "back": "Back"
+  },
+  "nav": {
+    "home": "Home",
+    "myReviews": "My Reviews",
+    "buyCredits": "Buy Credits",
+    "admin": "Admin",
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout"
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Login",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Sign Up",
+      "orContinueWith": "or continue with",
+      "google": "Continue with Google",
+      "facebook": "Continue with Facebook",
+      "success": "Login successful!",
+      "error": "An error occurred during login"
+    },
+    "signup": {
+      "title": "Sign Up",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign Up",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Login",
+      "orContinueWith": "or continue with",
+      "google": "Sign up with Google",
+      "facebook": "Sign up with Facebook",
+      "success": "Registration successful! Please check your email.",
+      "error": "An error occurred during registration"
+    }
+  },
+  "landing": {
+    "hero": {
+      "title": "Improve Your Art",
+      "subtitle": "Take your drawings to the next level with AI-powered analysis",
+      "cta": "Get Started"
+    },
+    "packages": {
+      "title": "Credit Packages",
+      "subtitle": "Choose the package that's right for you"
+    }
+  },
+  "credits": {
+    "balance": "Your Credit Balance",
+    "buy": "Buy Credits",
+    "insufficient": "Insufficient credits"
+  },
+  "evaluation": {
+    "new": "New Evaluation",
+    "title": "Title",
+    "description": "Description",
+    "uploadImage": "Upload Image",
+    "uploadVideo": "Upload Video",
+    "feedbackType": "Feedback Type",
+    "text": "Text",
+    "audio": "Audio",
+    "submit": "Request Evaluation",
+    "status": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "completed": "Completed",
+      "failed": "Failed"
+    }
+  }
+}
+
