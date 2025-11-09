@@ -74,9 +74,7 @@ export default function NewReviewModal({
         
         if (profile) {
           setCurrentCredits(profile.credits)
-          console.log('Fresh credits from DB:', profile.credits)
           if (profile.credits !== userCredits) {
-            console.warn(`Credits mismatch! Props: ${userCredits}, DB: ${profile.credits}`)
             toast.info(`Your actual credit balance is ${profile.credits}`)
           }
         }
@@ -278,8 +276,7 @@ export default function NewReviewModal({
       }
 
       // NOTE: Credits are automatically deducted by the deduct_credit_on_evaluation trigger
-      // No need to manually call decrease_credit RPC
-      console.log('Evaluation created successfully, trigger will handle credit deduction')
+      // No need to manually call decrease_credit RPC here
 
       setStep('success')
       toast.success('Review submitted successfully!')
