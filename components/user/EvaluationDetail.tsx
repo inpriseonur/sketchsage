@@ -123,12 +123,13 @@ export default function EvaluationDetail({
   }
 
   const formatTime = (seconds: number) => {
+    if (!isFinite(seconds) || isNaN(seconds)) return '0:00'
     const mins = Math.floor(seconds / 60)
     const secs = Math.floor(seconds % 60)
     return `${mins}:${secs.toString().padStart(2, '0')}`
   }
 
-  const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0
+  const progressPercent = duration > 0 && isFinite(duration) ? Math.min(100, Math.max(0, (currentTime / duration) * 100)) : 0
 
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-6">
@@ -202,7 +203,12 @@ export default function EvaluationDetail({
                   src={evaluation.feedbackContent}
                   onTimeUpdate={handleAudioTimeUpdate}
                   onLoadedMetadata={handleAudioLoadedMetadata}
+                  onDurationChange={handleAudioLoadedMetadata}
                   onEnded={() => setIsPlaying(false)}
+                  onPlay={() => setIsPlaying(true)}
+                  onPause={() => setIsPlaying(false)}
+                  className="hidden"
+                  preload="metadata"
                 />
                 <button
                   onClick={handleAudioPlay}
@@ -213,29 +219,38 @@ export default function EvaluationDetail({
                   </span>
                 </button>
 
-                <div className="flex flex-1 flex-col justify-center gap-2">
-                  <div className="relative h-1.5 w-full flex items-center">
+                <div className="flex flex-1 flex-col justify-center gap-2 min-w-0">
+                  <div className="relative h-2 w-full">
+                    {/* Background track */}
+                    <div className="absolute inset-0 bg-slate-700/50 rounded-full overflow-hidden">
+                      {/* Progress fill */}
+                      <div
+                        className="h-full bg-[#A94438] transition-all duration-100"
+                        style={{ width: `${progressPercent}%` }}
+                      ></div>
+                    </div>
+                    
+                    {/* Scrubber */}
                     <div
-                      className="absolute h-full bg-[#E29D83] rounded-l-full"
-                      style={{ width: `${progressPercent}%` }}
+                      className="absolute top-1/2 -translate-y-1/2 size-3.5 rounded-full bg-white shadow-lg transition-all duration-100"
+                      style={{ left: `${progressPercent}%`, transform: 'translate(-50%, -50%)' }}
                     ></div>
-                    <div
-                      className="absolute size-3.5 rounded-full bg-[#E29D83] ring-4 ring-[#A94438]"
-                      style={{ left: `${progressPercent}%`, transform: 'translateX(-50%)' }}
-                    ></div>
-                    <div className="absolute h-full w-full bg-slate-600/30 rounded-full -z-10"></div>
+                    
+                    {/* Invisible input for seeking */}
                     <input
                       type="range"
                       min="0"
                       max={duration || 0}
+                      step="0.1"
                       value={currentTime}
                       onChange={handleSeek}
-                      className="absolute w-full h-full opacity-0 cursor-pointer"
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                     />
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-xs text-slate-400">{formatTime(currentTime)}</span>
-                    <span className="text-xs text-slate-400">{formatTime(duration)}</span>
+                  
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-slate-400 tabular-nums">{formatTime(currentTime)}</span>
+                    <span className="text-xs text-slate-400 tabular-nums">{formatTime(duration)}</span>
                   </div>
                 </div>
               </div>
