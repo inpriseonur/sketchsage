@@ -1,8 +1,12 @@
-import Link from 'next/link'
-import { getTranslations } from '@/lib/i18n'
+'use client'
 
-export default async function Header() {
-  const t = await getTranslations()
+import Link from 'next/link'
+import { useTranslations } from '@/lib/i18n/client'
+import { useLocale } from '@/lib/i18n/use-locale'
+
+export default function Header() {
+  const t = useTranslations()
+  const locale = useLocale()
   
   return (
     <header className="border-b border-b-[#482323]">
@@ -23,7 +27,7 @@ export default async function Header() {
             <a href="#how-it-works">{t.nav.howItWorks}</a>
             <a href="#pricing">{t.nav.pricing}</a>
             <a href="#faq">{t.nav.faq}</a>
-            <Link href="/auth/login">{t.nav.login}</Link>
+            <Link href={`/${locale}/auth/login`}>{t.nav.login}</Link>
           </div>
         </nav>
       </div>

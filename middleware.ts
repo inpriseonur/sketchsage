@@ -2,45 +2,83 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 
+const locales = ['tr', 'en']
+const defaultLocale = 'tr'
+
+function getLocale(pathname: string): string | null {
+  const segments = pathname.split('/').filter(Boolean)
+  if (segments.length > 0 && locales.includes(segments[0])) {
+    return segments[0]
+  }
+  return null
+}
+
+function getPathnameWithoutLocale(pathname: string): string {
+  const segments = pathname.split('/').filter(Boolean)
+  if (segments.length > 0 && locales.includes(segments[0])) {
+    return '/' + segments.slice(1).join('/')
+  }
+  return pathname
+}
+
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
-  // Auth sayfalarını middleware'den geçirme
-  if (pathname.startsWith('/auth')) {
+  // Static files, API routes, ve _next dosyalarını geç
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/api') ||
+    pathname.startsWith('/favicon.ico') ||
+    pathname.match(/\.(ico|png|jpg|jpeg|svg|gif|webp|woff|woff2|ttf|eot)$/)
+  ) {
     return NextResponse.next()
   }
 
+  // Admin routes - locale olmadan çalışır
+  if (pathname.startsWith('/admin')) {
+    const { supabaseResponse, user } = await updateSession(request)
+    if (!user) {
+      // Cookie'den locale'i al, yoksa default 'tr' kullan
+      const locale = request.cookies.get('locale')?.value || 'tr'
+      return NextResponse.redirect(new URL(`/${locale}/auth/login`, request.url))
+    }
+    return supabaseResponse
+  }
+
+  // Mevcut locale'i kontrol et
+  const currentLocale = getLocale(pathname)
+  const pathnameWithoutLocale = getPathnameWithoutLocale(pathname)
+
+  // Eğer locale yoksa, Vercel geo'ya göre yönlendir
+  if (!currentLocale) {
+    const country = request.headers.get('x-vercel-ip-country') || 'US'
+    const locale = country === 'TR' ? 'tr' : 'en'
+    
+    // Root path ise direkt locale'e yönlendir
+    if (pathname === '/') {
+      return NextResponse.redirect(new URL(`/${locale}`, request.url))
+    }
+    
+    // Diğer path'ler için locale ekle
+    return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url))
+  }
+
+  // Session update
   const { supabaseResponse, user } = await updateSession(request)
 
-  // Vercel geo-location'dan ülke bilgisini al ve locale cookie set et
-  const country = request.headers.get('x-vercel-ip-country') || 'US'
-  const existingLocale = request.cookies.get('locale')?.value
-  
-  // Eğer locale cookie yoksa, ülkeye göre belirle
-  if (!existingLocale) {
-    const locale = country === 'TR' ? 'tr' : 'en'
-    supabaseResponse.cookies.set('locale', locale, {
-      path: '/',
-      maxAge: 31536000, // 1 yıl
-    })
-  }
+  // Locale cookie'yi set et
+  supabaseResponse.cookies.set('locale', currentLocale, {
+    path: '/',
+    maxAge: 31536000, // 1 yıl
+  })
 
-  // User routes - auth gerekir
-  if (pathname.startsWith('/user') || 
-      pathname.startsWith('/profile') ||
-      pathname.startsWith('/my-reviews') ||
-      pathname.startsWith('/buy-credits')) {
+  // User routes - auth gerekir (locale ile)
+  if (pathnameWithoutLocale.startsWith('/my-reviews') || 
+      pathnameWithoutLocale.startsWith('/buy-credits')) {
     if (!user) {
-      const redirectUrl = new URL('/auth/login', request.url)
+      const redirectUrl = new URL(`/${currentLocale}/auth/login`, request.url)
       redirectUrl.searchParams.set('redirectTo', pathname)
       return NextResponse.redirect(redirectUrl)
-    }
-  }
-
-  // Admin routes - admin auth gerekir
-  if (pathname.startsWith('/admin')) {
-    if (!user) {
-      return NextResponse.redirect(new URL('/auth/login', request.url))
     }
   }
 

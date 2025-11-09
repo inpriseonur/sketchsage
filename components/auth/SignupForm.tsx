@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import toast from 'react-hot-toast'
+import { useLocale } from '@/lib/i18n/use-locale'
 
 interface SignupFormProps {
   googleOAuthEnabled: boolean
@@ -15,6 +16,7 @@ interface SignupFormProps {
 export default function SignupForm({ googleOAuthEnabled, facebookOAuthEnabled, translations }: SignupFormProps) {
   const t = translations.auth.signup
   const router = useRouter()
+  const locale = useLocale()
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
@@ -38,7 +40,7 @@ export default function SignupForm({ googleOAuthEnabled, facebookOAuthEnabled, t
       if (error) throw error
 
       toast.success(t.success)
-      router.push('/auth/verify-email')
+      router.push(`/${locale}/auth/verify-email`)
     } catch (error: any) {
       toast.error(error.message || t.error)
     } finally {
@@ -193,7 +195,7 @@ export default function SignupForm({ googleOAuthEnabled, facebookOAuthEnabled, t
       {/* Login Link */}
       <p className="text-center text-gray-400">
         {t.hasAccount}{' '}
-        <Link href="/auth/login" className="text-blue-500 hover:text-blue-400 font-medium">
+        <Link href={`/${locale}/auth/login`} className="text-blue-500 hover:text-blue-400 font-medium">
           {t.loginLink}
         </Link>
       </p>

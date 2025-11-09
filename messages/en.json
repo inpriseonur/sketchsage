@@ -64,6 +64,15 @@
       "error": "An error occurred during registration",
       "googleError": "An error occurred during Google sign up",
       "facebookError": "An error occurred during Facebook sign up"
+    },
+    "verifyEmail": {
+      "title": "Verify Your Email",
+      "message": "We've sent you a verification email. Please click the link in your email to activate your account.",
+      "notReceived": "Didn't receive the email?",
+      "checkSpam": "Check your spam folder",
+      "checkEmail": "Make sure you entered the correct email address",
+      "wait": "Wait a few minutes, it may take some time for the email to arrive",
+      "backToLogin": "Back to Login"
     }
   },
   "landing": {

@@ -1,6 +1,7 @@
 import Sidebar from '@/components/admin/Sidebar'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers'
 
 export default async function AdminLayout({
   children,
@@ -11,7 +12,10 @@ export default async function AdminLayout({
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect('/auth/login?redirectTo=/admin')
+    // Cookie'den locale'i al, yoksa default 'tr' kullan
+    const cookieStore = await cookies()
+    const locale = cookieStore.get('locale')?.value || 'tr'
+    redirect(`/${locale}/auth/login?redirectTo=/admin`)
   }
 
   // Admin kontrolü yapabiliriz

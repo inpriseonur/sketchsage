@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { createClient } from '@/lib/supabase/client'
 import { useTranslations } from '@/lib/i18n/client'
+import { useLocale } from '@/lib/i18n/use-locale'
 
 interface Package {
   id: string
@@ -25,6 +26,7 @@ interface PackageCardProps {
 export default function PackageCard({ pkg, isFeatured, showDivider }: PackageCardProps) {
   const t = useTranslations()
   const router = useRouter()
+  const locale = useLocale()
   const [loading, setLoading] = useState(false)
 
   const handleClick = async () => {
@@ -39,7 +41,7 @@ export default function PackageCard({ pkg, isFeatured, showDivider }: PackageCar
         // Package ID'yi session storage'a kaydet
         sessionStorage.setItem('pendingPackageId', pkg.id)
         toast(t.credits.loginRequired)
-        router.push('/auth/login')
+        router.push(`/${locale}/auth/login`)
         return
       }
 

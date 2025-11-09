@@ -64,6 +64,15 @@
       "error": "Kayıt olurken bir hata oluştu",
       "googleError": "Google ile kayıt olurken hata oluştu",
       "facebookError": "Facebook ile kayıt olurken hata oluştu"
+    },
+    "verifyEmail": {
+      "title": "Email'inizi Doğrulayın",
+      "message": "Size bir doğrulama emaili gönderdik. Lütfen email'inizdeki linke tıklayarak hesabınızı aktifleştirin.",
+      "notReceived": "Email'i görmüyor musunuz?",
+      "checkSpam": "Spam klasörünüzü kontrol edin",
+      "checkEmail": "Doğru email adresini girdiğinizden emin olun",
+      "wait": "Birkaç dakika bekleyin, email'in gelmesi zaman alabilir",
+      "backToLogin": "Giriş Sayfasına Dön"
     }
   },
   "landing": {

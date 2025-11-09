@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import toast from 'react-hot-toast'
 import type { User } from '@supabase/supabase-js'
+import { useLocale } from '@/lib/i18n/use-locale'
 
 const menuItems = [
   { href: '/dashboard', label: 'Dashboard', icon: 'dashboard' },
@@ -21,6 +22,7 @@ type SidebarProps = {
 
 type SidebarContentProps = SidebarProps & {
   pathname: string
+  locale: string
   onNavigate?: () => void
   onLogout: () => Promise<void> | void
   isLoggingOut: boolean
@@ -30,6 +32,7 @@ function SidebarContent({
   user,
   credits,
   pathname,
+  locale,
   onNavigate,
   onLogout,
   isLoggingOut,
@@ -65,11 +68,12 @@ function SidebarContent({
 
         <nav className="flex flex-col gap-2">
           {menuItems.map((item) => {
-            const isActive = pathname === item.href
+            const fullHref = `/${locale}${item.href}`
+            const isActive = pathname.includes(item.href)
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                href={fullHref}
                 onClick={() => onNavigate?.()}
                 className={`flex items-center gap-3 rounded-full px-3 py-2 transition-colors ${
                   isActive
@@ -102,13 +106,14 @@ function SidebarContent({
 async function performLogout(
   router: ReturnType<typeof useRouter>,
   setIsLoggingOut: (state: boolean) => void,
+  locale: string,
 ) {
   setIsLoggingOut(true)
   try {
     const supabase = createClient()
     await supabase.auth.signOut()
     toast.success('Logged out successfully')
-    router.push('/')
+    router.push(`/${locale}`)
   } catch (error) {
     toast.error('Logout failed')
   } finally {
@@ -119,6 +124,7 @@ async function performLogout(
 export function SidebarDesktop({ user, credits }: SidebarProps) {
   const router = useRouter()
   const pathname = usePathname()
+  const locale = useLocale()
   const [isLoggingOut, setIsLoggingOut] = useState(false)
 
   return (
@@ -127,7 +133,8 @@ export function SidebarDesktop({ user, credits }: SidebarProps) {
         user={user}
         credits={credits}
         pathname={pathname}
-        onLogout={() => performLogout(router, setIsLoggingOut)}
+        locale={locale}
+        onLogout={() => performLogout(router, setIsLoggingOut, locale)}
         isLoggingOut={isLoggingOut}
       />
     </aside>
@@ -137,6 +144,7 @@ export function SidebarDesktop({ user, credits }: SidebarProps) {
 export function SidebarMobile({ user, credits }: SidebarProps) {
   const router = useRouter()
   const pathname = usePathname()
+  const locale = useLocale()
   const [isOpen, setIsOpen] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
 
@@ -175,8 +183,9 @@ export function SidebarMobile({ user, credits }: SidebarProps) {
           user={user}
           credits={credits}
           pathname={pathname}
+          locale={locale}
           onNavigate={() => setIsOpen(false)}
-          onLogout={() => performLogout(router, setIsLoggingOut)}
+          onLogout={() => performLogout(router, setIsLoggingOut, locale)}
           isLoggingOut={isLoggingOut}
         />
       </aside>

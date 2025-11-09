@@ -5,19 +5,26 @@ import HowItWorks from '@/components/landing/HowItWorks'
 import FAQ from '@/components/landing/FAQ'
 import Footer from '@/components/landing/Footer'
 import { createClient } from '@/lib/supabase/server'
-import { getLocale } from '@/lib/i18n'
+import { getLocaleFromParams } from '@/lib/i18n'
 import { generateMetadata as createMetadata } from '@/lib/seo/metadata'
 import type { Metadata } from 'next'
 
-export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale()
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const localeTyped = locale as 'tr' | 'en'
   
-  if (locale === 'tr') {
+  if (localeTyped === 'tr') {
     return createMetadata({
       title: 'SketchSage - Sanat Feedback Platformu',
       description: 'Kara kalem, sulu boya, yağlı boya ve pastel boya çalışmalarınıza profesyonel feedback alın. Uzman sanatçılardan detaylı geri bildirim ve yapıcı eleştiriler.',
       keywords: ['sanat feedback', 'çizim değerlendirme', 'resim eleştirisi', 'sanat eğitimi', 'profesyonel feedback', 'kara kalem', 'sulu boya', 'yağlı boya', 'pastel boya'],
       locale: 'tr',
+      alternateLocales: ['en'],
+      path: '',
     })
   }
   
@@ -26,21 +33,26 @@ export async function generateMetadata(): Promise<Metadata> {
     description: 'Get professional feedback on your pencil, watercolor, oil, and pastel artwork. Receive detailed critiques and constructive feedback from expert artists.',
     keywords: ['art feedback', 'drawing review', 'art critique', 'art education', 'professional feedback', 'pencil drawing', 'watercolor', 'oil painting', 'pastel'],
     locale: 'en',
+    alternateLocales: ['tr'],
+    path: '',
   })
 }
 
-export default async function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  const localeTyped = getLocaleFromParams({ locale })
   const supabase = await createClient()
-  
-  // Kullanıcının dilini al
-  const locale = await getLocale()
   
   // Hero içeriğini çek
   const { data: heroData } = await supabase
     .from('landing_content')
     .select('content')
     .eq('section', 'hero')
-    .eq('language', locale)
+    .eq('language', localeTyped)
     .single()
 
   const heroContent = heroData?.content as any
@@ -57,7 +69,7 @@ export default async function Home() {
     .from('landing_content')
     .select('content')
     .eq('section', 'quality')
-    .eq('language', locale)
+    .eq('language', localeTyped)
     .single()
 
   const qualityContent = qualityData?.content as any
@@ -67,7 +79,7 @@ export default async function Home() {
     .from('landing_content')
     .select('content')
     .eq('section', 'how_it_works')
-    .eq('language', locale)
+    .eq('language', localeTyped)
     .single()
 
   const howItWorksContent = howItWorksData?.content as any
@@ -77,7 +89,7 @@ export default async function Home() {
     .from('landing_content')
     .select('content')
     .eq('section', 'faq')
-    .eq('language', locale)
+    .eq('language', localeTyped)
     .single()
 
   const faqContent = faqData?.content as any

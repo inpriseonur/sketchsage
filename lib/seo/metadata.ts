@@ -16,6 +16,7 @@ interface SEOConfig {
   type?: 'website' | 'article'
   publishedTime?: string
   modifiedTime?: string
+  path?: string // URL path (locale hariç)
 }
 
 export function generateMetadata(config: SEOConfig): Metadata {
@@ -31,15 +32,19 @@ export function generateMetadata(config: SEOConfig): Metadata {
     type = 'website',
     publishedTime,
     modifiedTime,
+    path = '',
   } = config
 
   const fullTitle = `${title} | ${siteName}`
   const keywordsString = keywords.length > 0 ? keywords.join(', ') : undefined
 
-  // Hreflang alternatifleri
+  // Mevcut sayfanın canonical URL'i
+  const currentUrl = `${siteUrl}/${locale}${path}`
+
+  // Hreflang alternatifleri - URL-based
   const alternates: Record<string, string> = {}
   alternateLocales.forEach((altLocale) => {
-    alternates[`languages.${altLocale}`] = `${siteUrl}?locale=${altLocale}`
+    alternates[`languages.${altLocale}`] = `${siteUrl}/${altLocale}${path}`
   })
 
   return {
@@ -61,13 +66,13 @@ export function generateMetadata(config: SEOConfig): Metadata {
       },
     },
     alternates: {
-      canonical: siteUrl,
+      canonical: currentUrl,
       languages: alternates,
     },
     openGraph: {
       type,
       locale: locale === 'tr' ? 'tr_TR' : 'en_US',
-      url: siteUrl,
+      url: currentUrl,
       siteName,
       title: fullTitle,
       description,
