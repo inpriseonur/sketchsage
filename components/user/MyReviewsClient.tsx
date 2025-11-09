@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import ReviewCard from './ReviewCard'
 import NewReviewModal from './NewReviewModal'
 import EmptyState from './EmptyState'
+import { useTranslations } from '@/lib/i18n/client'
 
 type ReviewType = 'image' | 'video'
 type ReviewStatus = 'pending' | 'in_progress' | 'completed'
@@ -41,6 +42,7 @@ export default function MyReviewsClient({
   initialReviews: Review[]
 }) {
   const router = useRouter()
+  const t = useTranslations()
   const [searchQuery, setSearchQuery] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -62,13 +64,13 @@ export default function MyReviewsClient({
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-4xl font-black leading-tight tracking-[-0.033em] text-slate-50">
-          My Reviews
+          {t.myReviews.title}
         </h1>
         <div className="flex items-center gap-4">
           {/* Credits Box */}
           <div className="flex flex-col gap-2 rounded-2xl border border-slate-700/50 bg-[#161a25]/60 px-5 py-4 text-center backdrop-blur-sm">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-slate-400">
-              Credits Left
+              {t.myReviews.creditsLeft}
             </p>
             <p className="text-2xl font-bold leading-tight text-[#E29D83]">
               {credits}
@@ -81,8 +83,8 @@ export default function MyReviewsClient({
             className="btn-brush-stroke flex h-12 min-w-[120px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-full px-5 text-base font-bold leading-normal tracking-[0.015em] text-white transition-transform hover:scale-105"
           >
             <span className="material-symbols-outlined">add</span>
-            <span className="truncate hidden sm:inline">Get a New Review</span>
-            <span className="truncate sm:hidden">New</span>
+            <span className="truncate hidden sm:inline">{t.myReviews.getNewReview}</span>
+            <span className="truncate sm:hidden">{t.myReviews.getNewReviewShort}</span>
           </button>
         </div>
       </div>
@@ -96,7 +98,7 @@ export default function MyReviewsClient({
             </div>
             <input
               type="text"
-              placeholder="Search reviews by name..."
+              placeholder={t.myReviews.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="h-full w-full flex-1 rounded-r-full border-0 bg-transparent px-4 text-base text-slate-100 placeholder:text-slate-400 focus:outline-none"
@@ -109,7 +111,7 @@ export default function MyReviewsClient({
       {filteredReviews.length === 0 ? (
         searchQuery ? (
           <div className="py-12 text-center">
-            <p className="text-slate-400">No reviews found matching "{searchQuery}"</p>
+            <p className="text-slate-400">{t.myReviews.noResultsQuery.replace('{query}', searchQuery)}</p>
           </div>
         ) : (
           <EmptyState onGetStarted={() => setIsModalOpen(true)} />

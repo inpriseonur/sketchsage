@@ -1,4 +1,10 @@
+'use client'
+
+import { useTranslations } from '@/lib/i18n/client'
+
 export default function EmptyState({ onGetStarted }: { onGetStarted: () => void }) {
+  const t = useTranslations()
+  
   return (
     <div className="flex flex-col items-center justify-center py-16 px-4">
       {/* Illustration */}
@@ -20,10 +26,9 @@ export default function EmptyState({ onGetStarted }: { onGetStarted: () => void 
 
       {/* Message */}
       <div className="text-center mb-8 max-w-md">
-        <h2 className="text-2xl font-bold text-white mb-3">No Reviews Yet</h2>
+        <h2 className="text-2xl font-bold text-white mb-3">{t.myReviews.emptyState.title}</h2>
         <p className="text-white/60">
-          You haven't submitted any artwork for review yet. Start your artistic journey by getting
-          professional feedback from expert artists!
+          {t.myReviews.emptyState.message}
         </p>
       </div>
 
@@ -40,7 +45,7 @@ export default function EmptyState({ onGetStarted }: { onGetStarted: () => void 
             d="M12 4v16m8-8H4"
           />
         </svg>
-        Get Your First Review
+        {t.myReviews.emptyState.cta}
       </button>
 
       {/* Features */}
@@ -56,8 +61,8 @@ export default function EmptyState({ onGetStarted }: { onGetStarted: () => void 
               />
             </svg>
           </div>
-          <h3 className="text-sm font-semibold text-white mb-1">Easy Upload</h3>
-          <p className="text-xs text-white/60">Upload images or videos in seconds</p>
+          <h3 className="text-sm font-semibold text-white mb-1">{t.myReviews.emptyState.features.easyUpload.title}</h3>
+          <p className="text-xs text-white/60">{t.myReviews.emptyState.features.easyUpload.description}</p>
         </div>
 
         <div className="text-center">
@@ -71,8 +76,8 @@ export default function EmptyState({ onGetStarted }: { onGetStarted: () => void 
               />
             </svg>
           </div>
-          <h3 className="text-sm font-semibold text-white mb-1">Quick Turnaround</h3>
-          <p className="text-xs text-white/60">Get feedback within 48-72 hours</p>
+          <h3 className="text-sm font-semibold text-white mb-1">{t.myReviews.emptyState.features.quickTurnaround.title}</h3>
+          <p className="text-xs text-white/60">{t.myReviews.emptyState.features.quickTurnaround.description}</p>
         </div>
 
         <div className="text-center">
@@ -86,8 +91,8 @@ export default function EmptyState({ onGetStarted }: { onGetStarted: () => void 
               />
             </svg>
           </div>
-          <h3 className="text-sm font-semibold text-white mb-1">Expert Artists</h3>
-          <p className="text-xs text-white/60">Professional critique and guidance</p>
+          <h3 className="text-sm font-semibold text-white mb-1">{t.myReviews.emptyState.features.expertArtists.title}</h3>
+          <p className="text-xs text-white/60">{t.myReviews.emptyState.features.expertArtists.description}</p>
         </div>
       </div>
     </div>

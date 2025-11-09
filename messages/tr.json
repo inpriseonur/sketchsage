@@ -24,6 +24,19 @@
     "pricing": "Fiyatlandırma",
     "faq": "SSS"
   },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "myReviews": "Değerlendirmelerim",
+    "buyCredits": "Kredi Satın Al",
+    "profile": "Profil",
+    "creditsLeft": "Kalan Kredi",
+    "logout": "Çıkış Yap",
+    "loggingOut": "Çıkış yapılıyor...",
+    "menu": "Menü",
+    "user": "Kullanıcı",
+    "logoutSuccess": "Başarıyla çıkış yapıldı",
+    "logoutFailed": "Çıkış yapılamadı"
+  },
   "auth": {
     "login": {
       "title": "SketchSage'e Tekrar Hoş Geldiniz",
@@ -121,6 +134,48 @@
       "processing": "İşleniyor",
       "completed": "Tamamlandı",
       "failed": "Başarısız"
+    }
+  },
+  "myReviews": {
+    "title": "Değerlendirmelerim",
+    "creditsLeft": "Kalan Kredi",
+    "getNewReview": "Yeni Değerlendirme",
+    "getNewReviewShort": "Yeni",
+    "searchPlaceholder": "Değerlendirmeleri isme göre ara...",
+    "noResults": "Hiçbir değerlendirme bulunamadı",
+    "noResultsQuery": "\"{query}\" ile eşleşen değerlendirme bulunamadı",
+    "emptyState": {
+      "title": "Henüz Değerlendirme Yok",
+      "message": "Henüz değerlendirme için hiçbir eser göndermediniz. Uzman sanatçılardan profesyonel geri bildirim alarak sanatsal yolculuğunuza başlayın!",
+      "cta": "İlk Değerlendirmenizi Alın",
+      "features": {
+        "easyUpload": {
+          "title": "Kolay Yükleme",
+          "description": "Saniyeler içinde resim veya video yükleyin"
+        },
+        "quickTurnaround": {
+          "title": "Hızlı Dönüş",
+          "description": "48-72 saat içinde geri bildirim alın"
+        },
+        "expertArtists": {
+          "title": "Uzman Sanatçılar",
+          "description": "Profesyonel eleştiri ve rehberlik"
+        }
+      }
+    },
+    "status": {
+      "pending": "Beklemede",
+      "inProgress": "İşleniyor",
+      "completed": "Tamamlandı"
+    },
+    "questions": "Soru",
+    "questionsAnswered": "{answered}/{total} soru cevaplandı",
+    "viewDetails": "Detayları Görüntüle",
+    "submitted": "Gönderildi",
+    "untitled": "Başlıksız Değerlendirme",
+    "feedbackType": {
+      "text": "Metin",
+      "audio": "Sesli"
     }
   }
 }

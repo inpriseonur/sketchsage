@@ -1,4 +1,8 @@
+'use client'
+
 import Link from 'next/link'
+import { useTranslations } from '@/lib/i18n/client'
+import { useLocale } from '@/lib/i18n/use-locale'
 
 type ReviewStatus = 'pending' | 'in_progress' | 'completed'
 type ReviewType = 'image' | 'video'
@@ -18,33 +22,36 @@ type Review = {
   feedbackType: FeedbackType
 }
 
-const statusConfig = {
-  pending: {
-    label: 'Pending',
-    bgColor: 'bg-yellow-500/10',
-    textColor: 'text-yellow-300',
-    dotColor: 'bg-yellow-400',
-  },
-  in_progress: {
-    label: 'In Progress',
-    bgColor: 'bg-blue-500/10',
-    textColor: 'text-blue-300',
-    dotColor: 'bg-blue-400',
-  },
-  completed: {
-    label: 'Completed',
-    bgColor: 'bg-green-500/10',
-    textColor: 'text-green-300',
-    dotColor: 'bg-green-400',
-  },
-}
-
 export default function ReviewCard({ review }: { review: Review }) {
+  const t = useTranslations()
+  const locale = useLocale()
+  
+  const statusConfig = {
+    pending: {
+      label: t.myReviews.status.pending,
+      bgColor: 'bg-yellow-500/10',
+      textColor: 'text-yellow-300',
+      dotColor: 'bg-yellow-400',
+    },
+    in_progress: {
+      label: t.myReviews.status.inProgress,
+      bgColor: 'bg-blue-500/10',
+      textColor: 'text-blue-300',
+      dotColor: 'bg-blue-400',
+    },
+    completed: {
+      label: t.myReviews.status.completed,
+      bgColor: 'bg-green-500/10',
+      textColor: 'text-green-300',
+      dotColor: 'bg-green-400',
+    },
+  }
+  
   const statusInfo = statusConfig[review.status]
 
   return (
     <Link
-      href={`/my-reviews/${review.id}`}
+      href={`/${locale}/my-reviews/${review.id}`}
       className="flex flex-col gap-4 rounded-lg border border-slate-700/50 bg-[#161a25]/60 p-4 backdrop-blur-sm transition-shadow hover:shadow-2xl hover:shadow-black/20 md:flex-row md:items-center"
     >
       {/* Thumbnail */}
@@ -68,7 +75,7 @@ export default function ReviewCard({ review }: { review: Review }) {
         <div className="flex flex-col">
           <p className="font-semibold text-slate-100">{review.title}</p>
           <p className="text-sm text-slate-400">
-            Submitted: {new Date(review.submittedAt).toLocaleDateString('en-US', {
+            {t.myReviews.submitted}: {new Date(review.submittedAt).toLocaleDateString(locale === 'tr' ? 'tr-TR' : 'en-US', {
               day: '2-digit',
               month: 'short',
               year: 'numeric'
@@ -101,7 +108,7 @@ export default function ReviewCard({ review }: { review: Review }) {
           {/* Questions */}
           <div className="flex items-center gap-2 text-sm text-slate-400">
             <span className="material-symbols-outlined text-base">help</span>
-            <span>{review.questions.answered}/{review.questions.total} Questions</span>
+            <span>{t.myReviews.questionsAnswered.replace('{answered}', review.questions.answered.toString()).replace('{total}', review.questions.total.toString())}</span>
           </div>
         </div>
       </div>

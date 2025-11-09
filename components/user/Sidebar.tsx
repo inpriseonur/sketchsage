@@ -7,13 +7,7 @@ import { createClient } from '@/lib/supabase/client'
 import toast from 'react-hot-toast'
 import type { User } from '@supabase/supabase-js'
 import { useLocale } from '@/lib/i18n/use-locale'
-
-const menuItems = [
-  { href: '/dashboard', label: 'Dashboard', icon: 'dashboard' },
-  { href: '/my-reviews', label: 'My Reviews', icon: 'rate_review' },
-  { href: '/buy-credits', label: 'Buy Credits', icon: 'credit_card' },
-  { href: '/profile', label: 'Profile', icon: 'person' },
-]
+import { useTranslations } from '@/lib/i18n/client'
 
 type SidebarProps = {
   user: User
@@ -23,6 +17,7 @@ type SidebarProps = {
 type SidebarContentProps = SidebarProps & {
   pathname: string
   locale: string
+  translations: any
   onNavigate?: () => void
   onLogout: () => Promise<void> | void
   isLoggingOut: boolean
@@ -33,10 +28,20 @@ function SidebarContent({
   credits,
   pathname,
   locale,
+  translations,
   onNavigate,
   onLogout,
   isLoggingOut,
 }: SidebarContentProps) {
+  const t = translations.sidebar
+  
+  const menuItems = [
+    { href: '/dashboard', label: t.dashboard, icon: 'dashboard' },
+    { href: '/my-reviews', label: t.myReviews, icon: 'rate_review' },
+    { href: '/buy-credits', label: t.buyCredits, icon: 'credit_card' },
+    { href: '/profile', label: t.profile, icon: 'person' },
+  ]
+  
   return (
     <div className="flex h-full flex-col justify-between">
       <div className="flex flex-col gap-6">
@@ -52,7 +57,7 @@ function SidebarContent({
             />
             <div className="flex min-w-0 flex-col">
               <span className="text-base font-semibold text-slate-100 truncate">
-                {user.user_metadata?.full_name || 'User'}
+                {user.user_metadata?.full_name || t.user}
               </span>
               <span className="text-sm text-slate-400 truncate">{user.email}</span>
             </div>
@@ -60,7 +65,7 @@ function SidebarContent({
 
           <div className="rounded-2xl border border-slate-700/60 bg-[#1b202f]/70 px-4 py-3">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-slate-400">
-              Credits Left
+              {t.creditsLeft}
             </p>
             <p className="text-2xl font-bold text-[#E29D83]">{credits}</p>
           </div>
@@ -96,7 +101,7 @@ function SidebarContent({
       >
         <span className="material-symbols-outlined">logout</span>
         <span className="text-sm font-medium">
-          {isLoggingOut ? 'Logging out...' : 'Log Out'}
+          {isLoggingOut ? t.loggingOut : t.logout}
         </span>
       </button>
     </div>
@@ -107,15 +112,16 @@ async function performLogout(
   router: ReturnType<typeof useRouter>,
   setIsLoggingOut: (state: boolean) => void,
   locale: string,
+  translations: any,
 ) {
   setIsLoggingOut(true)
   try {
     const supabase = createClient()
     await supabase.auth.signOut()
-    toast.success('Logged out successfully')
+    toast.success(translations.sidebar.logoutSuccess)
     router.push(`/${locale}`)
   } catch (error) {
-    toast.error('Logout failed')
+    toast.error(translations.sidebar.logoutFailed)
   } finally {
     setIsLoggingOut(false)
   }
@@ -125,6 +131,7 @@ export function SidebarDesktop({ user, credits }: SidebarProps) {
   const router = useRouter()
   const pathname = usePathname()
   const locale = useLocale()
+  const t = useTranslations()
   const [isLoggingOut, setIsLoggingOut] = useState(false)
 
   return (
@@ -134,7 +141,8 @@ export function SidebarDesktop({ user, credits }: SidebarProps) {
         credits={credits}
         pathname={pathname}
         locale={locale}
-        onLogout={() => performLogout(router, setIsLoggingOut, locale)}
+        translations={t}
+        onLogout={() => performLogout(router, setIsLoggingOut, locale, t)}
         isLoggingOut={isLoggingOut}
       />
     </aside>
@@ -145,6 +153,7 @@ export function SidebarMobile({ user, credits }: SidebarProps) {
   const router = useRouter()
   const pathname = usePathname()
   const locale = useLocale()
+  const t = useTranslations()
   const [isOpen, setIsOpen] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
 
@@ -170,7 +179,7 @@ export function SidebarMobile({ user, credits }: SidebarProps) {
         }`}
       >
         <div className="mb-6 flex items-center justify-between">
-          <span className="text-lg font-semibold text-slate-100">Menu</span>
+          <span className="text-lg font-semibold text-slate-100">{t.sidebar.menu}</span>
           <button
             onClick={() => setIsOpen(false)}
             className="rounded-full bg-slate-800/80 p-1 text-slate-200"
@@ -184,8 +193,9 @@ export function SidebarMobile({ user, credits }: SidebarProps) {
           credits={credits}
           pathname={pathname}
           locale={locale}
+          translations={t}
           onNavigate={() => setIsOpen(false)}
-          onLogout={() => performLogout(router, setIsLoggingOut, locale)}
+          onLogout={() => performLogout(router, setIsLoggingOut, locale, t)}
           isLoggingOut={isLoggingOut}
         />
       </aside>

@@ -1,7 +1,7 @@
 import MyReviewsClient from '@/components/user/MyReviewsClient'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import { getLocaleFromParams } from '@/lib/i18n'
+import { getLocaleFromParams, getTranslations } from '@/lib/i18n'
 
 export default async function MyReviewsPage({
   params,
@@ -66,17 +66,21 @@ export default async function MyReviewsPage({
   
   const maxQuestions = settings ? Number(settings.value) : 2
 
+  // Locale'i al
+  const localeTyped = getLocaleFromParams({ locale })
+  const t = await getTranslations({ locale })
+  
   // Evaluations verisini component'in beklediği formata dönüştür
   const formattedReviews = (evaluations || []).map((evaluation) => {
     // Title'ı user_message'dan parse et
-    let title = 'Untitled Review'
+    let title = t.myReviews.untitled
     if (evaluation.user_message) {
       const titleMatch = evaluation.user_message.match(/TITLE:\s*(.+?)(?:\n|$)/)
       if (titleMatch && titleMatch[1]) {
         title = titleMatch[1].trim()
       } else {
         // Eğer format yoksa ilk satırı al
-        title = evaluation.user_message.split('\n')[0]?.slice(0, 50) || 'Untitled Review'
+        title = evaluation.user_message.split('\n')[0]?.slice(0, 50) || t.myReviews.untitled
       }
     }
 

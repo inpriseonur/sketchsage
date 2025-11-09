@@ -24,6 +24,19 @@
     "pricing": "Pricing",
     "faq": "FAQ"
   },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "myReviews": "My Reviews",
+    "buyCredits": "Buy Credits",
+    "profile": "Profile",
+    "creditsLeft": "Credits Left",
+    "logout": "Log Out",
+    "loggingOut": "Logging out...",
+    "menu": "Menu",
+    "user": "User",
+    "logoutSuccess": "Logged out successfully",
+    "logoutFailed": "Logout failed"
+  },
   "auth": {
     "login": {
       "title": "Welcome Back to SketchSage",
@@ -121,6 +134,48 @@
       "processing": "Processing",
       "completed": "Completed",
       "failed": "Failed"
+    }
+  },
+  "myReviews": {
+    "title": "My Reviews",
+    "creditsLeft": "Credits Left",
+    "getNewReview": "Get a New Review",
+    "getNewReviewShort": "New",
+    "searchPlaceholder": "Search reviews by name...",
+    "noResults": "No reviews found",
+    "noResultsQuery": "No reviews found matching \"{query}\"",
+    "emptyState": {
+      "title": "No Reviews Yet",
+      "message": "You haven't submitted any artwork for review yet. Start your artistic journey by getting professional feedback from expert artists!",
+      "cta": "Get Your First Review",
+      "features": {
+        "easyUpload": {
+          "title": "Easy Upload",
+          "description": "Upload images or videos in seconds"
+        },
+        "quickTurnaround": {
+          "title": "Quick Turnaround",
+          "description": "Get feedback within 48-72 hours"
+        },
+        "expertArtists": {
+          "title": "Expert Artists",
+          "description": "Professional critique and guidance"
+        }
+      }
+    },
+    "status": {
+      "pending": "Pending",
+      "inProgress": "In Progress",
+      "completed": "Completed"
+    },
+    "questions": "Question",
+    "questionsAnswered": "{answered}/{total} questions answered",
+    "viewDetails": "View Details",
+    "submitted": "Submitted",
+    "untitled": "Untitled Review",
+    "feedbackType": {
+      "text": "Text",
+      "audio": "Audio"
     }
   }
 }

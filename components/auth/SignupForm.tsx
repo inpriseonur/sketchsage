@@ -79,24 +79,22 @@ export default function SignupForm({ googleOAuthEnabled, facebookOAuthEnabled, t
   }
 
   return (
-    <div className="space-y-10">
+    <div className="flex flex-col gap-6">
       {/* Başlık */}
-      <div className="space-y-3">
-        <h1 className="text-4xl font-bold leading-tight">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-white text-4xl font-black leading-tight tracking-[-0.033em]">
           {t.title}
         </h1>
-        <p className="text-gray-400 text-lg">
+        <p className="text-slate-400 text-base font-normal leading-normal">
           {t.subtitle}
         </p>
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="space-y-7">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         {/* Email */}
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium mb-3">
-            {t.email}
-          </label>
+        <label className="flex flex-col min-w-40 flex-1">
+          <p className="text-white text-base font-medium leading-normal pb-2">{t.email}</p>
           <input
             id="email"
             type="email"
@@ -104,15 +102,13 @@ export default function SignupForm({ googleOAuthEnabled, facebookOAuthEnabled, t
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             placeholder={t.emailPlaceholder}
-            className="w-full px-4 py-4 bg-[#252837] border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-500 text-base"
+            className="flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-blue-500/50 border border-slate-700 bg-slate-800/50 focus:border-blue-500 h-12 placeholder:text-slate-500 p-[15px] text-base font-normal leading-normal"
           />
-        </div>
+        </label>
 
         {/* Password */}
-        <div>
-          <label htmlFor="password" className="block text-sm font-medium mb-3">
-            {t.password}
-          </label>
+        <label className="flex flex-col min-w-40 flex-1">
+          <p className="text-white text-base font-medium leading-normal pb-2">{t.password}</p>
           <input
             id="password"
             type="password"
@@ -120,60 +116,63 @@ export default function SignupForm({ googleOAuthEnabled, facebookOAuthEnabled, t
             value={formData.password}
             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
             placeholder={t.passwordPlaceholder}
-            className="w-full px-4 py-4 bg-[#252837] border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-500 text-base"
+            className="flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-blue-500/50 border border-slate-700 bg-slate-800/50 focus:border-blue-500 h-12 placeholder:text-slate-500 p-[15px] text-base font-normal leading-normal"
           />
-        </div>
+        </label>
 
-        {/* Submit Button */}
+        {/* Submit Button - Landing page butonu gibi */}
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed rounded-lg font-semibold text-base transition-colors"
+          className="flex mt-2 w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-[#9F2241] hover:bg-[#A45D40] disabled:bg-[#7a1a32] disabled:cursor-not-allowed text-white text-base font-bold leading-normal tracking-[0.015em] focus:outline-none focus:ring-2 focus:ring-[#9F2241]/50 transition-all"
         >
-          {loading ? t.submitting : t.submit}
+          <span className="truncate">{loading ? t.submitting : t.submit}</span>
         </button>
+
+        {/* Terms and Privacy Policy */}
+        <p className="text-center text-xs text-slate-400">
+          {t.termsText || 'By creating an account, you agree to our '}
+          {t.termsLink && (
+            <>
+              <Link href={`/${locale}/terms`} className="underline hover:text-blue-400 transition-colors">
+                {t.termsLink}
+              </Link>
+              {' and '}
+            </>
+          )}
+          {t.privacyLink && (
+            <Link href={`/${locale}/privacy`} className="underline hover:text-blue-400 transition-colors">
+              {t.privacyLink}
+            </Link>
+          )}
+        </p>
       </form>
 
       {/* Divider - Sadece en az bir OAuth aktifse göster */}
       {(googleOAuthEnabled || facebookOAuthEnabled) && (
-        <div className="relative my-8">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-700"></div>
-          </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-4 bg-[#1a1d2e] text-gray-500">{t.or}</span>
-          </div>
+        <div className="flex items-center gap-4">
+          <hr className="flex-1 border-t border-slate-700"/>
+          <p className="text-slate-400 text-sm">{t.or}</p>
+          <hr className="flex-1 border-t border-slate-700"/>
         </div>
       )}
 
       {/* OAuth Buttons */}
       {(googleOAuthEnabled || facebookOAuthEnabled) && (
-        <div className="space-y-4">
+        <div className="flex flex-col gap-4">
           {googleOAuthEnabled && (
             <button
               onClick={handleGoogleSignup}
               type="button"
-              className="w-full py-3 bg-[#252837] hover:bg-[#2d3142] border border-gray-700 rounded-lg font-medium transition-colors flex items-center justify-center gap-3"
+              className="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 px-4 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700 text-base font-bold leading-normal tracking-[0.015em] hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
             >
-              <svg className="w-5 h-5" viewBox="0 0 24 24">
-                <path
-                  fill="#4285F4"
-                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                />
-                <path
-                  fill="#34A853"
-                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                />
-                <path
-                  fill="#FBBC05"
-                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                />
-                <path
-                  fill="#EA4335"
-                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                />
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.5777 12.2577C22.5777 11.4177 22.5077 10.6077 22.3877 9.81773H12.2477V14.4577H18.1677C17.8977 15.8677 17.0677 17.0977 15.8477 17.9177V20.5177H19.5677C21.5077 18.7377 22.5777 15.8277 22.5777 12.2577Z" fill="#4285F4"></path>
+                <path d="M12.2477 23.0077C15.2577 23.0077 17.7677 22.0177 19.5677 20.5177L15.8477 17.9177C14.8577 18.5977 13.6677 19.0177 12.2477 19.0177C9.52773 19.0177 7.21773 17.2277 6.37773 14.8177H2.54773V17.5077C4.31773 20.7677 7.97773 23.0077 12.2477 23.0077Z" fill="#34A853"></path>
+                <path d="M6.3777 14.8177C6.1477 14.1277 6.0177 13.3877 6.0177 12.6277C6.0177 11.8677 6.1477 11.1277 6.3777 10.4377V7.7477H2.5477C1.8277 9.1277 1.4177 10.8277 1.4177 12.6277C1.4177 14.4277 1.8277 16.1277 2.5477 17.5077L6.3777 14.8177Z" fill="#FBBC05"></path>
+                <path d="M12.2477 6.23773C13.7377 6.23773 15.0277 6.75773 16.1077 7.77773L19.6477 4.31773C17.7577 2.55773 15.2577 1.24773 12.2477 1.24773C7.97773 1.24773 4.31773 3.48773 2.54773 6.74773L6.37773 9.43773C7.21773 7.02773 9.52773 5.23773 12.2477 5.23773V6.23773Z" fill="#EA4335"></path>
               </svg>
-              {t.googleButton}
+              <span className="truncate">{t.googleButton}</span>
             </button>
           )}
 
@@ -181,21 +180,21 @@ export default function SignupForm({ googleOAuthEnabled, facebookOAuthEnabled, t
             <button
               onClick={handleFacebookSignup}
               type="button"
-              className="w-full py-3 bg-[#252837] hover:bg-[#2d3142] border border-gray-700 rounded-lg font-medium transition-colors flex items-center justify-center gap-3"
+              className="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 px-4 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700 text-base font-bold leading-normal tracking-[0.015em] hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
             >
-              <svg className="w-5 h-5" fill="#1877F2" viewBox="0 0 24 24">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              <svg className="h-5 w-5" fill="#1877F2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path>
               </svg>
-              {t.facebookButton}
+              <span className="truncate">{t.facebookButton}</span>
             </button>
           )}
         </div>
       )}
 
       {/* Login Link */}
-      <p className="text-center text-gray-400">
+      <p className="text-center text-slate-400 text-sm">
         {t.hasAccount}{' '}
-        <Link href={`/${locale}/auth/login`} className="text-blue-500 hover:text-blue-400 font-medium">
+        <Link href={`/${locale}/auth/login`} className="text-blue-500 hover:text-blue-400 font-medium underline">
           {t.loginLink}
         </Link>
       </p>
