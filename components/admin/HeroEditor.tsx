@@ -161,14 +161,25 @@ export default function HeroEditor({ data }: { data: HeroData[] }) {
               Medya Önizleme
             </label>
             <div className="bg-[#0f1117] border border-gray-700 rounded-lg p-4">
-              <img
-                src={currentForm.media_url}
-                alt="Preview"
-                className="max-w-md rounded"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none'
-                }}
-              />
+              {currentForm.media_url.match(/\.(mp4|webm|ogg)$/i) ? (
+                <video
+                  src={currentForm.media_url}
+                  controls
+                  className="max-w-md rounded"
+                  style={{ maxHeight: '400px' }}
+                >
+                  Tarayıcınız video etiketini desteklemiyor.
+                </video>
+              ) : (
+                <img
+                  src={currentForm.media_url}
+                  alt="Preview"
+                  className="max-w-md rounded"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none'
+                  }}
+                />
+              )}
             </div>
           </div>
         )}

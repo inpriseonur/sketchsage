@@ -87,10 +87,26 @@ export default function Hero({ content, packages = [] }: { content?: HeroContent
             )}
           </div>
 
-          {/* Sağda görsel - background-image */}
-          <div className="w-full aspect-square rounded-xl bg-center bg-no-repeat bg-cover md:min-w-[400px] md:flex-1" style={{
-            backgroundImage: `url(${mediaUrl})`
-          }} />
+          {/* Sağda medya - görsel veya video */}
+          <div className="w-full aspect-square rounded-xl md:min-w-[400px] md:flex-1 overflow-hidden">
+            {mediaUrl.match(/\.(mp4|webm|ogg)$/i) ? (
+              <video
+                src={mediaUrl}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+              >
+                Tarayıcınız video etiketini desteklemiyor.
+              </video>
+            ) : (
+              <div 
+                className="w-full h-full bg-center bg-no-repeat bg-cover" 
+                style={{ backgroundImage: `url(${mediaUrl})` }}
+              />
+            )}
+          </div>
         </div>
     </section>
   )
