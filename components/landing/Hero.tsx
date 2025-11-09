@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import PackageCard from './PackageCard'
 
 interface HeroContent {
   title: string
@@ -54,7 +55,7 @@ export default function Hero({ content, packages = [] }: { content?: HeroContent
               </div>
             </div>
 
-            {/* Chip fiyatlar - Dinamik */}
+            {/* Chip fiyatlar - Dinamik & Tıklanabilir */}
             {packages.length > 0 && (
               <div className="mt-8 flex flex-wrap items-center justify-center gap-4 px-4 sm:justify-start">
                 {packages.map((pkg, index) => {
@@ -62,25 +63,12 @@ export default function Hero({ content, packages = [] }: { content?: HeroContent
                   const isFeatured = index === 1
                   
                   return (
-                    <div key={pkg.id} className="flex items-center gap-4">
-                      {index > 0 && <div className="hidden sm:block w-px h-6 bg-white/10" />}
-                      
-                      <div className={`relative flex items-center justify-center gap-4 rounded-lg px-4 py-2 text-center text-white backdrop-blur-sm transition-all ${
-                        isFeatured 
-                          ? 'bg-white/10 border-2 border-[#D8753B]/60 hover:bg-white/15 scale-105 shadow-lg shadow-[#D8753B]/10'
-                          : 'bg-white/5 hover:bg-white/10'
-                      }`}>
-                        {isFeatured && (
-                          <div className="absolute -top-3 -right-3 rotate-12">
-                            <svg className="text-[#D8753B] drop-shadow-md" fill="currentColor" height="32" width="32" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                            </svg>
-                          </div>
-                        )}
-                        <span className="text-sm font-bold">{pkg.name}</span>
-                        <span className="font-bold text-[#D8753B]">${pkg.price_usd}</span>
-                      </div>
-                    </div>
+                    <PackageCard
+                      key={pkg.id}
+                      pkg={pkg}
+                      isFeatured={isFeatured}
+                      showDivider={index > 0}
+                    />
                   )
                 })}
               </div>
