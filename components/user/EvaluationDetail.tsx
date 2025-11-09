@@ -64,10 +64,17 @@ export default function EvaluationDetail({
 
     setIsSubmitting(true)
     try {
+      // Get current user
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) {
+        throw new Error('Kullanıcı oturumu bulunamadı')
+      }
+
       const { error } = await supabase
         .from('evaluation_questions')
         .insert({
           evaluation_id: evaluation.id,
+          user_id: user.id,
           question: newQuestion.trim(),
           answer: null,
         })
