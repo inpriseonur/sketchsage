@@ -23,10 +23,20 @@ export default async function UserLayout({
 
   return (
     <div className="flex min-h-screen w-full textured-bg">
-      <Sidebar user={user} credits={profile?.credits || 0} />
-      <main className="flex-1 min-h-screen ml-0 lg:ml-[256px]">
+      {/* Sidebar Section */}
+      <section className="hidden lg:block w-64 shrink-0">
+        <Sidebar user={user} credits={profile?.credits || 0} />
+      </section>
+      
+      {/* Mobile Sidebar (fixed overlay) */}
+      <div className="lg:hidden">
+        <Sidebar user={user} credits={profile?.credits || 0} />
+      </div>
+      
+      {/* Main Content Section */}
+      <section className="flex-1 min-h-screen w-full lg:w-auto">
         {children}
-      </main>
+      </section>
     </div>
   )
 }
