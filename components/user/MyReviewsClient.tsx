@@ -43,21 +43,17 @@ export default function MyReviewsClient({
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [currentCredits, setCurrentCredits] = useState(credits)
-  const [reviews, setReviews] = useState<Review[]>(initialReviews)
 
   // Filter and sort reviews
   const filteredReviews = useMemo(() => {
-    const filtered = reviews.filter((review) =>
+    const filtered = initialReviews.filter((review) =>
       review.title.toLowerCase().includes(searchQuery.toLowerCase())
     )
     return sortReviews(filtered)
-  }, [reviews, searchQuery])
+  }, [initialReviews, searchQuery])
 
   const handleReviewSuccess = () => {
-    // Refresh credits
-    setCurrentCredits(prev => Math.max(0, prev - 1))
-    // Refresh the page to get updated reviews list
+    // Refresh the page to get updated reviews list and credits
     router.refresh()
   }
 
@@ -75,7 +71,7 @@ export default function MyReviewsClient({
               Credits Left
             </p>
             <p className="text-2xl font-bold leading-tight text-[#E29D83]">
-              {currentCredits}
+              {credits}
             </p>
           </div>
 
@@ -130,7 +126,7 @@ export default function MyReviewsClient({
       <NewReviewModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)}
-        userCredits={currentCredits}
+        userCredits={credits}
         onSuccess={handleReviewSuccess}
       />
     </div>
