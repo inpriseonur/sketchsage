@@ -131,14 +131,77 @@ Tüm tablolarda RLS aktiftir:
 
 `next-intl` kullanılarak implement edilecek.
 
-## 🚀 Deployment
+## 🚀 Deployment (Vercel)
 
-### Vercel'e Deploy
+### Adım 1: Vercel'e Import
+1. [Vercel Dashboard](https://vercel.com/dashboard)'a gidin
+2. "Add New" > "Project" tıklayın
+3. GitHub repository'nizi seçin (`sketchsage`)
+4. Framework preset olarak **Next.js** seçildiğinden emin olun
 
-1. GitHub'a push edin
-2. Vercel'e import edin
-3. Environment variables'ı ekleyin
-4. Deploy edin
+### Adım 2: Environment Variables Ekleyin
+
+Vercel'de "Configure Project" kısmında **Environment Variables** bölümüne şunları ekleyin:
+
+**Supabase (Zorunlu)**
+```
+NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJxxx...
+```
+
+**Stripe (Opsiyonel - Ödeme için gerekli)**
+```
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_xxx...
+STRIPE_SECRET_KEY=sk_test_xxx...
+```
+
+**Cloudflare R2 (Opsiyonel - Medya storage için gerekli)**
+```
+R2_ACCOUNT_ID=xxx
+R2_ACCESS_KEY_ID=xxx
+R2_SECRET_ACCESS_KEY=xxx
+R2_BUCKET_NAME=sketchsage
+```
+
+**App URL (Önemli - Callback için)**
+```
+NEXT_PUBLIC_APP_URL=https://your-project.vercel.app
+```
+
+### Adım 3: Deploy
+
+"Deploy" butonuna tıklayın. Build süreci başlayacak (~2-3 dakika).
+
+### Adım 4: Domain Ayarları
+
+Deploy tamamlandıktan sonra:
+1. Vercel'den size verilen domain'i kopyalayın (örn: `sketchsage.vercel.app`)
+2. Supabase Dashboard > Authentication > URL Configuration'a gidin
+3. **Site URL**: `https://your-project.vercel.app`
+4. **Redirect URLs**: `https://your-project.vercel.app/auth/callback`
+
+### Önemli Notlar
+
+⚠️ **İlk Deploy'da Şunları Kontrol Edin:**
+- Environment variables'ın hepsi doğru girilmiş olmalı
+- Supabase URL'leri güncel olmalı
+- Database migration'ları Supabase'de çalıştırılmış olmalı
+
+⚠️ **Build Hatası Alırsanız:**
+- Vercel build log'larını inceleyin
+- TypeScript hatalarını kontrol edin
+- Environment variables'ların eksik olmadığından emin olun
+
+### Güncelleme Deploy'u
+
+Kod değişikliklerinden sonra:
+```bash
+git add .
+git commit -m "feat: new feature"
+git push
+```
+
+Vercel otomatik olarak yeni deploy başlatır.
 
 ## 📝 Sıradaki Adımlar
 

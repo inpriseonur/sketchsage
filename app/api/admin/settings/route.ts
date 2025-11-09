@@ -71,24 +71,14 @@ export async function PUT(request: Request) {
 
     const body = await request.json()
     
-    console.log('Received settings update:', body)
-    
     // Her ayarı güncelle
     const updatePromises = Object.entries(body).map(async ([key, value]) => {
-      console.log(`Updating ${key}:`, value, typeof value)
-      
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('system_settings')
         .update({ value })
         .eq('key', key)
-        .select()
 
-      if (error) {
-        console.error(`Error updating ${key}:`, error)
-        throw error
-      }
-      
-      console.log(`Updated ${key}:`, data)
+      if (error) throw error
     })
 
     await Promise.all(updatePromises)
