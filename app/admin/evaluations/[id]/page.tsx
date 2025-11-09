@@ -1,4 +1,5 @@
 import EvaluationForm from '@/components/admin/EvaluationForm'
+import AdminQuestions from '@/components/admin/AdminQuestions'
 import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -46,6 +47,13 @@ export default async function AdminEvaluationDetailPage({
       description = descMatch[1].trim()
     }
   }
+
+  // Soruları çek
+  const { data: questions } = await supabase
+    .from('evaluation_questions')
+    .select('*')
+    .eq('evaluation_id', id)
+    .order('created_at', { ascending: true })
 
   return (
     <div className="flex flex-col gap-6 p-6 max-w-5xl mx-auto">
@@ -117,6 +125,17 @@ export default async function AdminEvaluationDetailPage({
         currentStatus={evaluation.status as 'pending' | 'in_progress' | 'completed'}
         currentFeedbackType={evaluation.feedback_type as 'text' | 'audio' | null}
         currentFeedbackContent={evaluation.feedback_content}
+      />
+
+      {/* Questions & Answers */}
+      <AdminQuestions
+        evaluationId={evaluation.id}
+        questions={(questions || []).map((q) => ({
+          id: q.id,
+          question: q.question,
+          answer: q.answer,
+          createdAt: q.created_at,
+        }))}
       />
     </div>
   )
