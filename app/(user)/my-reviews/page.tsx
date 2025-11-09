@@ -27,6 +27,34 @@ export default async function MyReviewsPage() {
     .eq('user_id', user?.id)
     .order('created_at', { ascending: false })
 
+  // Tüm evaluation'ların soru sayılarını tek sorguda al
+  const evaluationIds = evaluations?.map(e => e.id) || []
+  const { data: questionCounts } = await supabase
+    .from('evaluation_questions')
+    .select('evaluation_id, answer')
+    .in('evaluation_id', evaluationIds)
+
+  // Her evaluation için soru sayılarını hesapla
+  const questionStats = (questionCounts || []).reduce((acc, q) => {
+    if (!acc[q.evaluation_id]) {
+      acc[q.evaluation_id] = { total: 0, answered: 0 }
+    }
+    acc[q.evaluation_id].total++
+    if (q.answer) {
+      acc[q.evaluation_id].answered++
+    }
+    return acc
+  }, {} as Record<string, { total: number; answered: number }>)
+
+  // System settings'den soru limitini çek
+  const { data: settings } = await supabase
+    .from('system_settings')
+    .select('value')
+    .eq('key', 'questions_per_evaluation')
+    .single()
+  
+  const maxQuestions = settings ? Number(settings.value) : 2
+
   // Evaluations verisini component'in beklediği formata dönüştür
   const formattedReviews = (evaluations || []).map((evaluation) => {
     // Title'ı user_message'dan parse et
@@ -40,13 +68,18 @@ export default async function MyReviewsPage() {
         title = evaluation.user_message.split('\n')[0]?.slice(0, 50) || 'Untitled Review'
       }
     }
+
+    const questionData = questionStats[evaluation.id] || { total: 0, answered: 0 }
     
     return {
       id: evaluation.id,
       title,
       type: evaluation.media_type as 'image' | 'video',
       submittedAt: new Date(evaluation.created_at).toISOString().split('T')[0],
-      questions: { answered: 0, total: 2 }, // TODO: Gerçek soru sayısını al
+      questions: { 
+        answered: questionData.answered, 
+        total: questionData.total 
+      },
       status: evaluation.status as 'pending' | 'in_progress' | 'completed',
       thumbnail: evaluation.media_url,
       feedbackType: evaluation.feedback_type as 'text' | 'audio' | null,
