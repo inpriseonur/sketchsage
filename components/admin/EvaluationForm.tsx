@@ -4,6 +4,7 @@ import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { createClient } from '@/lib/supabase/client'
+import AudioRecorder from './AudioRecorder'
 
 interface Props {
   evaluationId: string
@@ -26,14 +27,11 @@ export default function EvaluationForm({
     currentFeedbackType || 'text'
   )
   const [textFeedback, setTextFeedback] = useState(currentFeedbackContent || '')
-  const [audioFile, setAudioFile] = useState<File | null>(null)
+  const [audioFile, setAudioFile] = useState<File | Blob | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const handleAudioFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setAudioFile(e.target.files[0])
-    }
+  const handleAudioRecordingComplete = (audioBlob: Blob) => {
+    setAudioFile(audioBlob)
   }
 
   const handleSubmit = async () => {
@@ -54,7 +52,13 @@ export default function EvaluationForm({
 
       // Upload audio file if selected
       if (feedbackType === 'audio' && audioFile) {
-        const fileName = `${evaluationId}_${Date.now()}.${audioFile.name.split('.').pop()}`
+        // Determine file extension
+        let fileExtension = 'webm'
+        if (audioFile instanceof File) {
+          fileExtension = audioFile.name.split('.').pop() || 'webm'
+        }
+        
+        const fileName = `${evaluationId}_${Date.now()}.${fileExtension}`
         const { data: uploadData, error: uploadError } = await supabase.storage
           .from('user')
           .upload(`admin/audio/${fileName}`, audioFile, {
@@ -173,34 +177,21 @@ export default function EvaluationForm({
               Sesli Değerlendirme
             </label>
             
-            {currentFeedbackContent && !audioFile && (
-              <div className="mb-4 rounded-lg border border-slate-700 bg-[#0f1119] p-4">
-                <p className="text-sm text-slate-400 mb-2">Mevcut ses dosyası:</p>
-                <audio src={currentFeedbackContent} controls className="w-full" />
-              </div>
-            )}
-
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="audio/*"
-              onChange={handleAudioFileChange}
-              className="hidden"
+            <AudioRecorder 
+              onRecordingComplete={handleAudioRecordingComplete}
+              currentAudioUrl={currentFeedbackContent}
             />
             
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              className="w-full rounded-lg border-2 border-dashed border-slate-700 bg-[#0f1119] px-4 py-8 text-center hover:border-slate-600 hover:bg-[#161a25]"
-            >
-              <span className="material-symbols-outlined text-4xl text-slate-500 mb-2">
-                upload_file
-              </span>
-              <p className="text-sm text-slate-400">
-                {audioFile ? audioFile.name : 'Ses dosyası yükleyin veya sürükleyin'}
-              </p>
-              <p className="mt-1 text-xs text-slate-600">MP3, WAV, M4A (max 50MB)</p>
-            </button>
+            {audioFile && (
+              <div className="mt-3 p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
+                <div className="flex items-center gap-2 text-green-400">
+                  <span className="material-symbols-outlined text-sm">check_circle</span>
+                  <p className="text-sm">
+                    Ses dosyası hazır: {audioFile instanceof File ? audioFile.name : 'Kaydedilen ses'}
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
