@@ -37,20 +37,24 @@ export default function NewReviewModal({
   const [maxImageSizeMB, setMaxImageSizeMB] = useState(3)
   const [maxVideoSizeMB, setMaxVideoSizeMB] = useState(30)
   
+  // Fresh credits from server (to prevent stale data)
+  const [currentCredits, setCurrentCredits] = useState(userCredits)
+  
   const fileInputRef = useRef<HTMLInputElement>(null)
   const isSubmittingRef = useRef(false)
   const supabase = createClient()
 
-  // Fetch file size limits on mount
+  // Fetch file size limits and fresh credits on mount
   useEffect(() => {
-    const fetchLimits = async () => {
-      const { data } = await supabase
+    const fetchSettings = async () => {
+      // Fetch system settings
+      const { data: settings } = await supabase
         .from('system_settings')
         .select('key, value')
         .in('key', ['max_image_size_mb', 'max_video_size_mb'])
       
-      if (data) {
-        data.forEach((setting) => {
+      if (settings) {
+        settings.forEach((setting) => {
           if (setting.key === 'max_image_size_mb') {
             setMaxImageSizeMB(Number(setting.value))
           } else if (setting.key === 'max_video_size_mb') {
@@ -58,12 +62,31 @@ export default function NewReviewModal({
           }
         })
       }
+
+      // Fetch fresh credits from server
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        const { data: profile } = await supabase
+          .from('users_profile')
+          .select('credits')
+          .eq('id', user.id)
+          .single()
+        
+        if (profile) {
+          setCurrentCredits(profile.credits)
+          console.log('Fresh credits from DB:', profile.credits)
+          if (profile.credits !== userCredits) {
+            console.warn(`Credits mismatch! Props: ${userCredits}, DB: ${profile.credits}`)
+            toast.info(`Your actual credit balance is ${profile.credits}`)
+          }
+        }
+      }
     }
     
     if (isOpen) {
-      fetchLimits()
+      fetchSettings()
     }
-  }, [isOpen, supabase])
+  }, [isOpen, supabase, userCredits])
 
   // Reset state when modal closes
   useEffect(() => {
@@ -211,7 +234,7 @@ export default function NewReviewModal({
       return
     }
 
-    if (userCredits < 1) {
+    if (currentCredits < 1) {
       toast.error('Insufficient credits')
       return
     }
@@ -309,8 +332,8 @@ export default function NewReviewModal({
 
   if (!isOpen) return null
 
-  // Check credits
-  if (userCredits < 1) {
+  // Check credits (use fresh credits from DB)
+  if (currentCredits < 1) {
     return (
       <div
         className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
@@ -369,7 +392,7 @@ export default function NewReviewModal({
             <div className="text-center">
               <h2 className="text-2xl font-bold text-white mb-2">Upload Your Artwork</h2>
               <p className="text-white/60">
-                Credits remaining: <span className="font-bold text-[#E29D83]">{userCredits}</span>
+                Credits remaining: <span className="font-bold text-[#E29D83]">{currentCredits}</span>
               </p>
             </div>
 
