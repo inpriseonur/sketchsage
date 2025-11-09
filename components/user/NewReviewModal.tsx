@@ -277,24 +277,9 @@ export default function NewReviewModal({
         throw evalError
       }
 
-      // Decrease user credits
-      console.log('Calling decrease_credit RPC at:', new Date().toISOString())
-      const { data: creditResult, error: creditError } = await supabase
-        .rpc('decrease_credit', { user_uuid: user.id })
-
-      console.log('RPC result:', creditResult, 'at:', new Date().toISOString())
-      
-      if (creditError) {
-        console.error('RPC error:', creditError)
-        throw new Error('Database error: ' + creditError.message)
-      }
-      
-      if (!creditResult?.success) {
-        console.error('RPC failed:', creditResult)
-        throw new Error(creditResult?.error || 'Failed to decrease credits')
-      }
-      
-      console.log('Credits after decrease:', creditResult.credits)
+      // NOTE: Credits are automatically deducted by the deduct_credit_on_evaluation trigger
+      // No need to manually call decrease_credit RPC
+      console.log('Evaluation created successfully, trigger will handle credit deduction')
 
       setStep('success')
       toast.success('Review submitted successfully!')
