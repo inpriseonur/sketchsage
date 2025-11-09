@@ -39,7 +39,7 @@ export default function Sidebar({ user, credits }: { user: User; credits: number
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-[#161a25] rounded-lg text-slate-200"
+        className="lg:hidden fixed top-4 left-4 z-[60] p-2 bg-[#161a25] rounded-lg text-slate-200"
       >
         <span className="material-symbols-outlined">
           {isOpen ? 'close' : 'menu'}
@@ -49,14 +49,14 @@ export default function Sidebar({ user, credits }: { user: User; credits: number
       {/* Overlay for mobile */}
       {isOpen && (
         <div
-          className="lg:hidden fixed inset-0 bg-black/50 z-40"
+          className="lg:hidden fixed inset-0 bg-black/50 z-[45]"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-[#161a25] border-r border-slate-700/50 p-4 z-50 transition-transform duration-300 flex flex-col justify-between text-slate-200 ${
+        className={`fixed top-0 left-0 h-full w-64 bg-[#161a25] border-r border-slate-700/50 p-4 z-[55] transition-transform duration-300 flex flex-col justify-between text-slate-200 ${
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
