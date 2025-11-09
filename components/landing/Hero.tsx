@@ -7,7 +7,17 @@ interface HeroContent {
   media_url?: string
 }
 
-export default function Hero({ content }: { content?: HeroContent }) {
+interface Package {
+  id: string
+  name: string
+  credits: number
+  price_usd: string
+  price_try: string
+  is_active: boolean
+  display_order: number
+}
+
+export default function Hero({ content, packages = [] }: { content?: HeroContent; packages?: Package[] }) {
   // Varsayılan değerler
   const title = content?.title || 'Expert Feedback for Your Sketches'
   const subtitle = content?.subtitle || 'Elevate your art with professional critiques from seasoned artists. Transform your practice with personalized, in-depth guidance.'
@@ -44,29 +54,38 @@ export default function Hero({ content }: { content?: HeroContent }) {
               </div>
             </div>
 
-            {/* Chip fiyatlar */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4 px-4 sm:justify-start">
-              <div className="flex items-center justify-center gap-4 rounded-lg bg-white/5 px-4 py-2 text-center text-white backdrop-blur-sm transition-all hover:bg-white/10">
-                <span className="font-bold">1</span>
-                <span className="text-sm">Feedback</span>
-                <span className="font-bold text-[#D8753B]">$9.99</span>
+            {/* Chip fiyatlar - Dinamik */}
+            {packages.length > 0 && (
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-4 px-4 sm:justify-start">
+                {packages.map((pkg, index) => {
+                  // İkinci paket (index 1) featured olacak
+                  const isFeatured = index === 1
+                  
+                  return (
+                    <div key={pkg.id} className="flex items-center gap-4">
+                      {index > 0 && <div className="hidden sm:block w-px h-6 bg-white/10" />}
+                      
+                      <div className={`relative flex items-center justify-center gap-4 rounded-lg px-4 py-2 text-center text-white backdrop-blur-sm transition-all ${
+                        isFeatured 
+                          ? 'bg-white/10 border-2 border-[#D8753B]/60 hover:bg-white/15 scale-105 shadow-lg shadow-[#D8753B]/10'
+                          : 'bg-white/5 hover:bg-white/10'
+                      }`}>
+                        {isFeatured && (
+                          <div className="absolute -top-3 -right-3 rotate-12">
+                            <svg className="text-[#D8753B] drop-shadow-md" fill="currentColor" height="32" width="32" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                            </svg>
+                          </div>
+                        )}
+                        <span className="font-bold">{pkg.credits}</span>
+                        <span className="text-sm">Feedback</span>
+                        <span className="font-bold text-[#D8753B]">${pkg.price_usd}</span>
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
-              <div className="hidden sm:block w-px h-6 bg-white/10" />
-              <div className="relative flex items-center justify-center gap-4 rounded-lg bg-white/10 px-4 py-2 text-center text-white backdrop-blur-sm border-2 border-[#D8753B]/60 transition-all hover:bg-white/15 scale-105 shadow-lg shadow-[#D8753B]/10">
-                <div className="absolute -top-3 -right-3 rotate-12">
-                  <svg className="text-[#D8753B] drop-shadow-md" fill="currentColor" height="32" width="32" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                </div>
-                <span className="font-bold">5</span>
-                <span className="text-sm">Feedback</span>
-                <span className="font-bold text-[#D8753B]">$39.99</span>
-              </div>
-              <div className="hidden sm:block w-px h-6 bg-white/10" />
-              <div className="flex items-center justify-center gap-4 rounded-lg bg-white/5 px-4 py-2 text-center text-white backdrop-blur-sm transition-all hover:bg-white/10">
-                <span className="font-bold">10</span>
-                <span className="text-sm">Feedback</span>
-                <span className="font-bold text-[#D8753B]">$69.99</span>
-              </div>
-            </div>
+            )}
           </div>
 
           {/* Sağda görsel - background-image */}

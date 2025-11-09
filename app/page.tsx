@@ -18,6 +18,13 @@ export default async function Home() {
     .single()
 
   const heroContent = heroData?.content as any
+
+  // Aktif paketleri çek
+  const { data: packages } = await supabase
+    .from('credit_packages')
+    .select('*')
+    .eq('is_active', true)
+    .order('display_order')
   
   return (
     <div style={{ backgroundColor: '#221010', minHeight: '100vh', width: '100%' }}>
@@ -33,7 +40,7 @@ export default async function Home() {
           flexDirection: 'column',
           gap: '80px'
         }}>
-          <Hero content={heroContent} />
+          <Hero content={heroContent} packages={packages || []} />
           <QualitySection />
           <HowItWorks />
           <FAQ />
