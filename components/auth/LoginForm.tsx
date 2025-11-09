@@ -9,9 +9,11 @@ import toast from 'react-hot-toast'
 interface LoginFormProps {
   googleOAuthEnabled: boolean
   facebookOAuthEnabled: boolean
+  translations: any
 }
 
-export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled }: LoginFormProps) {
+export default function LoginForm({ googleOAuthEnabled, facebookOAuthEnabled, translations }: LoginFormProps) {
+  const t = translations.auth.login
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
