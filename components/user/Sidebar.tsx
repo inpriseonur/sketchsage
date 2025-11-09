@@ -8,10 +8,10 @@ import toast from 'react-hot-toast'
 import type { User } from '@supabase/supabase-js'
 
 const menuItems = [
-  { href: '/dashboard', label: 'Dashboard', icon: '📊' },
-  { href: '/my-reviews', label: 'My Reviews', icon: '📝' },
-  { href: '/buy-credits', label: 'Buy Credits', icon: '💰' },
-  { href: '/profile', label: 'Profile', icon: '👤' },
+  { href: '/dashboard', label: 'Dashboard', icon: 'dashboard' },
+  { href: '/my-reviews', label: 'My Reviews', icon: 'rate_review' },
+  { href: '/buy-credits', label: 'Buy Credits', icon: 'credit_card' },
+  { href: '/profile', label: 'Profile', icon: 'person' },
 ]
 
 export default function Sidebar({ user, credits }: { user: User; credits: number }) {
@@ -39,15 +39,11 @@ export default function Sidebar({ user, credits }: { user: User; credits: number
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-[#1a1d2e] rounded-lg text-white"
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-[#161a25] rounded-lg text-slate-200"
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          {isOpen ? (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          ) : (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          )}
-        </svg>
+        <span className="material-symbols-outlined">
+          {isOpen ? 'close' : 'menu'}
+        </span>
       </button>
 
       {/* Overlay for mobile */}
@@ -60,73 +56,65 @@ export default function Sidebar({ user, credits }: { user: User; credits: number
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-[#1a1d2e] border-r border-gray-800 p-6 z-40 transition-transform duration-300 ${
+        className={`fixed top-0 left-0 h-full w-64 bg-[#161a25] border-r border-slate-700/50 p-4 z-40 transition-transform duration-300 flex flex-col justify-between text-slate-200 ${
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
-        {/* Header */}
-        <div className="mb-8">
-          <Link href="/dashboard" className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
-            <span className="text-2xl">🎨</span>
-            <h1 className="text-xl font-bold text-white">SketchSage</h1>
-          </Link>
-        </div>
-
-        {/* User Info */}
-        <div className="mb-6 p-4 bg-white/5 rounded-lg border border-white/10">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-[#D41111] to-[#9F2241] rounded-full flex items-center justify-center text-white font-bold">
-              {user.email?.[0].toUpperCase()}
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-white truncate">{user.email}</p>
+        <div className="flex flex-col gap-4">
+          {/* User Info */}
+          <div className="flex items-center gap-3 p-2">
+            <div 
+              className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+              style={{
+                backgroundImage: user.user_metadata?.avatar_url 
+                  ? `url(${user.user_metadata.avatar_url})` 
+                  : 'url(https://api.dicebear.com/7.x/initials/svg?seed=' + user.email + ')'
+              }}
+            />
+            <div className="flex flex-col min-w-0">
+              <h1 className="text-base font-medium leading-normal text-slate-100 truncate">
+                {user.user_metadata?.full_name || 'User'}
+              </h1>
+              <p className="text-sm font-normal leading-normal text-slate-400 truncate">
+                {user.email}
+              </p>
             </div>
           </div>
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-white/60">Credits</span>
-            <span className="font-bold text-[#D41111]">{credits}</span>
-          </div>
-        </div>
 
-        {/* Navigation */}
-        <nav className="space-y-2 flex-1">
-          {menuItems.map((item) => {
-            const isActive = pathname === item.href
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                  isActive
-                    ? 'bg-[#D41111] text-white'
-                    : 'text-gray-300 hover:bg-gray-800 hover:text-white'
-                }`}
-              >
-                <span className="text-xl">{item.icon}</span>
-                <span className="font-medium">{item.label}</span>
-              </Link>
-            )
-          })}
-        </nav>
+          {/* Navigation */}
+          <nav className="flex flex-col gap-2">
+            {menuItems.map((item) => {
+              const isActive = pathname === item.href
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setIsOpen(false)}
+                  className={`flex items-center gap-3 rounded-full px-3 py-2 ${
+                    isActive
+                      ? 'bg-[#A94438]/20 text-[#E29D83]'
+                      : 'text-slate-200 hover:bg-slate-700/30'
+                  }`}
+                >
+                  <span className="material-symbols-outlined">{item.icon}</span>
+                  <p className="text-sm font-medium leading-normal">{item.label}</p>
+                </Link>
+              )
+            })}
+          </nav>
+        </div>
 
         {/* Bottom Section */}
-        <div className="mt-auto pt-6 border-t border-gray-800 space-y-2">
-          <Link
-            href="/"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-gray-800"
-          >
-            <span className="text-xl">🏠</span>
-            <span>Home</span>
-          </Link>
+        <div className="flex flex-col gap-1">
           <button
             onClick={handleLogout}
             disabled={isLoggingOut}
-            className="w-full flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-gray-800 disabled:opacity-50"
+            className="flex items-center gap-3 rounded-full px-3 py-2 text-slate-200 hover:bg-slate-700/30 disabled:opacity-50"
           >
-            <span className="text-xl">🚪</span>
-            <span>{isLoggingOut ? 'Logging out...' : 'Log Out'}</span>
+            <span className="material-symbols-outlined">logout</span>
+            <p className="text-sm font-medium leading-normal">
+              {isLoggingOut ? 'Logging out...' : 'Log Out'}
+            </p>
           </button>
         </div>
       </aside>

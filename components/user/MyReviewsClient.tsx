@@ -74,77 +74,74 @@ export default function MyReviewsClient({ credits }: { credits: number }) {
   }, [searchQuery])
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-white">My Reviews</h1>
-          <p className="text-sm text-white/60 mt-1">
-            Track your artwork feedback and progress
-          </p>
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg">
-            <span className="text-sm text-white/60">Credits Left</span>
-            <span className="text-2xl font-bold text-[#D41111]">{credits}</span>
-          </div>
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#D41111] to-[#9F2241] text-white font-semibold rounded-lg hover:brightness-110 transition-all hover:scale-105"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-            <span className="hidden sm:inline">Get a New Review</span>
-            <span className="sm:hidden">New</span>
-          </button>
-        </div>
-      </div>
+    <div className="textured-bg flex-1 overflow-y-auto p-6 md:p-8 lg:p-12">
+      <div className="mx-auto max-w-4xl">
+        {/* Header */}
+        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+          <h1 className="text-4xl font-black leading-tight tracking-[-0.033em] text-slate-50">
+            My Reviews
+          </h1>
+          <div className="flex items-center gap-4">
+            {/* Credits Box */}
+            <div className="flex flex-col gap-2 rounded-lg border border-slate-700/50 bg-[#161a25]/60 p-4 text-center backdrop-blur-sm">
+              <p className="text-base font-medium leading-normal text-slate-200">
+                Credits Left
+              </p>
+              <p className="text-2xl font-bold leading-tight tracking-light text-[#E29D83]">
+                {credits}
+              </p>
+            </div>
 
-      {/* Search Bar */}
-      <div className="relative">
-        <svg
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
-        </svg>
-        <input
-          type="text"
-          placeholder="Search reviews by name..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-[#D41111] focus:border-transparent transition-all"
-        />
-      </div>
-
-      {/* Reviews List or Empty State */}
-      {filteredReviews.length === 0 ? (
-        searchQuery ? (
-          <div className="text-center py-12">
-            <p className="text-white/60">No reviews found matching "{searchQuery}"</p>
+            {/* Get Review Button */}
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="btn-brush-stroke flex h-12 min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-full px-5 text-base font-bold leading-normal tracking-[0.015em] text-white transition-transform hover:scale-105"
+            >
+              <span className="material-symbols-outlined">add</span>
+              <span className="truncate hidden sm:inline">Get a New Review</span>
+              <span className="truncate sm:hidden">New</span>
+            </button>
           </div>
+        </div>
+
+        {/* Search Bar */}
+        <div className="mb-8">
+          <label className="flex h-12 w-full min-w-40 flex-col">
+            <div className="flex h-full w-full flex-1 items-stretch rounded-lg">
+              <div className="flex items-center justify-center rounded-l-lg border-y border-l border-slate-700/50 bg-[#161a25]/60 pl-4 text-slate-400 backdrop-blur-sm">
+                <span className="material-symbols-outlined">search</span>
+              </div>
+              <input
+                type="text"
+                placeholder="Search reviews by name..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="form-input h-full w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg border border-slate-700/50 bg-[#161a25]/60 px-4 pl-2 text-base font-normal leading-normal text-slate-100 placeholder:text-slate-400 focus:border-[#A94438] focus:outline-0 focus:ring-0"
+              />
+            </div>
+          </label>
+        </div>
+
+        {/* Reviews List or Empty State */}
+        {filteredReviews.length === 0 ? (
+          searchQuery ? (
+            <div className="text-center py-12">
+              <p className="text-slate-400">No reviews found matching "{searchQuery}"</p>
+            </div>
+          ) : (
+            <EmptyState onGetStarted={() => setIsModalOpen(true)} />
+          )
         ) : (
-          <EmptyState onGetStarted={() => setIsModalOpen(true)} />
-        )
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {filteredReviews.map((review) => (
-            <ReviewCard key={review.id} review={review} />
-          ))}
-        </div>
-      )}
+          <div className="flex flex-col gap-6">
+            {filteredReviews.map((review) => (
+              <ReviewCard key={review.id} review={review} />
+            ))}
+          </div>
+        )}
+      </div>
 
       {/* New Review Modal */}
       <NewReviewModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   )
 }
-
