@@ -24,7 +24,7 @@ export default async function UserLayout({
   return (
     <div className="flex min-h-screen w-full textured-bg">
       <Sidebar user={user} credits={profile?.credits || 0} />
-      <main className="relative z-10 flex-1 lg:ml-64 min-h-screen">
+      <main className="flex-1 lg:ml-64 min-h-screen">
         {children}
       </main>
     </div>

@@ -45,7 +45,7 @@ export default function ReviewCard({ review }: { review: Review }) {
   return (
     <Link
       href={`/my-reviews/${review.id}`}
-      className="relative z-10 flex flex-col gap-4 rounded-lg border border-slate-700/50 bg-[#161a25]/60 p-4 backdrop-blur-sm transition-shadow hover:shadow-2xl hover:shadow-black/20 md:flex-row md:items-center"
+      className="flex flex-col gap-4 rounded-lg border border-slate-700/50 bg-[#161a25]/60 p-4 backdrop-blur-sm transition-shadow hover:shadow-2xl hover:shadow-black/20 md:flex-row md:items-center"
     >
       {/* Thumbnail */}
       <div className="relative h-32 w-full shrink-0 overflow-hidden rounded md:h-24 md:w-24">
