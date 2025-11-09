@@ -18,6 +18,11 @@ export default async function AdminDashboard() {
     .from('users_profile')
     .select('*', { count: 'exact', head: true })
 
+  const { count: unansweredQuestions } = await supabase
+    .from('evaluation_questions')
+    .select('*', { count: 'exact', head: true })
+    .is('answer', null)
+
   return (
     <div className="space-y-8">
       <div>
@@ -26,7 +31,7 @@ export default async function AdminDashboard() {
       </div>
 
       {/* İstatistik Kartları */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-[#1a1d2e] border border-gray-800 rounded-lg p-6">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-gray-400 text-sm font-medium">Toplam Kullanıcı</h3>
@@ -49,6 +54,14 @@ export default async function AdminDashboard() {
             <span className="text-2xl">📝</span>
           </div>
           <p className="text-3xl font-bold text-white">{totalEvaluations || 0}</p>
+        </div>
+
+        <div className="bg-[#1a1d2e] border border-gray-800 rounded-lg p-6">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-gray-400 text-sm font-medium">Bekleyen Soru</h3>
+            <span className="text-2xl">❓</span>
+          </div>
+          <p className="text-3xl font-bold text-orange-500">{unansweredQuestions || 0}</p>
         </div>
       </div>
 

@@ -18,6 +18,7 @@ const menuItems = [
   },
   { href: '/admin/packages', label: 'Paketler', icon: '💰' },
   { href: '/admin/evaluations', label: 'Değerlendirmeler', icon: '📝' },
+  { href: '/admin/questions', label: 'Sorular', icon: '❓' },
   { href: '/admin/settings', label: 'Ayarlar', icon: '⚙️' },
 ]
 
