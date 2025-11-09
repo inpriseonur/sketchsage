@@ -1,56 +1,28 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { useRouter } from 'next/navigation'
 import ReviewCard from './ReviewCard'
 import NewReviewModal from './NewReviewModal'
 import EmptyState from './EmptyState'
 
-// Mock data - will be replaced with real data later
-const mockReviews = [
-  {
-    id: '1',
-    title: 'Abstract Flow Study',
-    type: 'image' as const,
-    submittedAt: '2024-05-24',
-    questions: { answered: 2, total: 2 },
-    status: 'completed' as const,
-    thumbnail: 'https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=300&h=300&fit=crop',
-    feedbackType: 'text' as const,
-  },
-  {
-    id: '2',
-    title: 'Character Walk Cycle',
-    type: 'video' as const,
-    submittedAt: '2024-05-30',
-    questions: { answered: 0, total: 2 },
-    status: 'in_progress' as const,
-    thumbnail: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=300&h=300&fit=crop',
-    feedbackType: 'audio' as const,
-  },
-  {
-    id: '3',
-    title: 'Portrait Sketch',
-    type: 'image' as const,
-    submittedAt: '2024-06-02',
-    questions: { answered: 0, total: 2 },
-    status: 'pending' as const,
-    thumbnail: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=300&h=300&fit=crop',
-    feedbackType: 'text' as const,
-  },
-  {
-    id: '4',
-    title: 'Landscape Oil Painting',
-    type: 'image' as const,
-    submittedAt: '2024-05-15',
-    questions: { answered: 2, total: 2 },
-    status: 'completed' as const,
-    thumbnail: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=300&h=300&fit=crop',
-    feedbackType: 'audio' as const,
-  },
-]
+type ReviewType = 'image' | 'video'
+type ReviewStatus = 'pending' | 'in_progress' | 'completed'
+type FeedbackType = 'text' | 'audio' | null
+
+interface Review {
+  id: string
+  title: string
+  type: ReviewType
+  submittedAt: string
+  questions: { answered: number; total: number }
+  status: ReviewStatus
+  thumbnail: string
+  feedbackType: FeedbackType
+}
 
 // Sort: completed first, then by date descending
-const sortReviews = (reviews: typeof mockReviews) => {
+const sortReviews = (reviews: Review[]) => {
   return [...reviews].sort((a, b) => {
     // Completed items first
     if (a.status === 'completed' && b.status !== 'completed') return -1
@@ -61,23 +33,32 @@ const sortReviews = (reviews: typeof mockReviews) => {
   })
 }
 
-export default function MyReviewsClient({ credits }: { credits: number }) {
+export default function MyReviewsClient({ 
+  credits, 
+  initialReviews 
+}: { 
+  credits: number
+  initialReviews: Review[]
+}) {
+  const router = useRouter()
   const [searchQuery, setSearchQuery] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentCredits, setCurrentCredits] = useState(credits)
+  const [reviews, setReviews] = useState<Review[]>(initialReviews)
 
   // Filter and sort reviews
   const filteredReviews = useMemo(() => {
-    const filtered = mockReviews.filter((review) =>
+    const filtered = reviews.filter((review) =>
       review.title.toLowerCase().includes(searchQuery.toLowerCase())
     )
     return sortReviews(filtered)
-  }, [searchQuery])
+  }, [reviews, searchQuery])
 
   const handleReviewSuccess = () => {
     // Refresh credits
     setCurrentCredits(prev => Math.max(0, prev - 1))
-    // TODO: Refresh reviews list from database
+    // Refresh the page to get updated reviews list
+    router.refresh()
   }
 
   return (

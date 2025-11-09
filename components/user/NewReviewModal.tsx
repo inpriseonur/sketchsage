@@ -224,13 +224,16 @@ export default function NewReviewModal({
       const mediaType = uploadedFile.file.type.startsWith('image/') ? 'image' : 'video'
 
       // Insert evaluation
+      // Format: "TITLE: {title}\n\nDESCRIPTION: {description}"
+      const formattedMessage = `TITLE: ${title}\n\nDESCRIPTION: ${description}`
+      
       const { data: evaluation, error: evalError } = await supabase
         .from('evaluations')
         .insert({
           user_id: user.id,
           media_url: urlData.publicUrl,
           media_type: mediaType,
-          user_message: description || title,
+          user_message: formattedMessage,
           status: 'pending',
           feedback_type: null
         })
