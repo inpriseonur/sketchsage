@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { getTranslations, getLocale } from '@/lib/i18n'
-import { generateMetadata } from '@/lib/seo/metadata'
+import { generateMetadata as createMetadata } from '@/lib/seo/metadata'
 import type { Metadata } from 'next'
 import LoginForm from '@/components/auth/LoginForm'
 
@@ -8,7 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale()
   
   if (locale === 'tr') {
-    return generateMetadata({
+    return createMetadata({
       title: 'Giriş Yap',
       description: 'SketchSage hesabınıza giriş yapın ve sanat çalışmalarınız için profesyonel feedback almaya başlayın.',
       locale: 'tr',
@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
     })
   }
   
-  return generateMetadata({
+  return createMetadata({
     title: 'Login',
     description: 'Sign in to your SketchSage account and start receiving professional feedback on your artwork.',
     locale: 'en',

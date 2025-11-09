@@ -6,14 +6,14 @@ import FAQ from '@/components/landing/FAQ'
 import Footer from '@/components/landing/Footer'
 import { createClient } from '@/lib/supabase/server'
 import { getLocale } from '@/lib/i18n'
-import { generateMetadata } from '@/lib/seo/metadata'
+import { generateMetadata as createMetadata } from '@/lib/seo/metadata'
 import type { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale()
   
   if (locale === 'tr') {
-    return generateMetadata({
+    return createMetadata({
       title: 'SketchSage - Sanat Feedback Platformu',
       description: 'Kara kalem, sulu boya, yağlı boya ve pastel boya çalışmalarınıza profesyonel feedback alın. Uzman sanatçılardan detaylı geri bildirim ve yapıcı eleştiriler.',
       keywords: ['sanat feedback', 'çizim değerlendirme', 'resim eleştirisi', 'sanat eğitimi', 'profesyonel feedback', 'kara kalem', 'sulu boya', 'yağlı boya', 'pastel boya'],
@@ -21,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
     })
   }
   
-  return generateMetadata({
+  return createMetadata({
     title: 'SketchSage - Professional Art Feedback Platform',
     description: 'Get professional feedback on your pencil, watercolor, oil, and pastel artwork. Receive detailed critiques and constructive feedback from expert artists.',
     keywords: ['art feedback', 'drawing review', 'art critique', 'art education', 'professional feedback', 'pencil drawing', 'watercolor', 'oil painting', 'pastel'],
