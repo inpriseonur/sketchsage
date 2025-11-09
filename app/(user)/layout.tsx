@@ -1,4 +1,4 @@
-import Sidebar from '@/components/user/Sidebar'
+import { SidebarDesktop, SidebarMobile } from '@/components/user/Sidebar'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 
@@ -22,21 +22,16 @@ export default async function UserLayout({
     .single()
 
   return (
-    <div className="flex min-h-screen w-full textured-bg">
-      {/* Sidebar Section */}
-      <section className="hidden lg:block w-64 shrink-0">
-        <Sidebar user={user} credits={profile?.credits || 0} />
-      </section>
-      
-      {/* Mobile Sidebar (fixed overlay) */}
-      <div className="lg:hidden">
-        <Sidebar user={user} credits={profile?.credits || 0} />
+    <div className="min-h-screen w-full textured-bg">
+      <SidebarMobile user={user} credits={profile?.credits || 0} />
+
+      <div className="mx-auto flex min-h-screen max-w-6xl gap-8 px-6 py-10 lg:px-10">
+        <SidebarDesktop user={user} credits={profile?.credits || 0} />
+
+        <main className="flex-1 rounded-3xl border border-slate-700/40 bg-[#161a25]/75 px-6 py-8 shadow-[0_20px_45px_-20px_rgba(0,0,0,0.5)]">
+          {children}
+        </main>
       </div>
-      
-      {/* Main Content Section */}
-      <section className="flex-1 min-h-screen w-full lg:w-auto lg:ml-8 lg:pt-[128px]">
-        {children}
-      </section>
     </div>
   )
 }
